@@ -1,0 +1,4 @@
+FysicaWetten
+
+F = m * a
+    grondbeginsel van de dynamica
