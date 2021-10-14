@@ -1,32 +1,46 @@
 package com.physics;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.time.Duration;
 
 import com.physics.util.Timer;
-import com.physics.util.Time;
+
 
 public class Application
 {
-	public Application()
+	public Application(String title, int width, int height)
 	{
 		timer = new Timer();
+		renderer = new Renderer(title, width, height);
+		keyboard = new Keyboard();
+		renderer.addKeyListener(keyboard);
 	}
 
-	protected void update(Time dt) {}
+	protected void update(Duration dt) {}
 	protected void render() {}
+
+	public void close()
+	{
+		renderer.close();
+	}
 
 	public void run()
 	{
 		int i = 0;
-		while(running)
+		while(renderer.open())
 		{
 			update(timer.mark());
 			render();
-			if (i == 5)
-				running = false;
-			++i;
 		}
+		System.out.println("done");
+		renderer.dispose();
+	}
+
+	protected Graphics2D graphics()
+	{
+		return renderer.graphics();
 	}
 
 	private Timer timer;
-	protected boolean running = true;
+	protected Renderer renderer;
+	protected Keyboard keyboard;
 }

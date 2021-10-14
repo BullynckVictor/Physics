@@ -1,5 +1,8 @@
 package com.physics.util;
 
+import java.time.LocalDateTime;
+import java.time.Duration;
+
 public class Timer
 {
 	public Timer()
@@ -9,24 +12,34 @@ public class Timer
 
 	void reset()
 	{
-		lastTime.setNow();
+		lastTime = now();
 	}
 
-	public Time mark()
+	public Duration mark()
 	{
-		Time temp = new Time(lastTime);
+		LocalDateTime temp = LocalDateTime.from(lastTime);
 		reset();
-		return Time.duration(lastTime, temp);
+		return Duration.between(temp, lastTime);
 	}
-	public Time peek()
+	public Duration peek()
 	{
-		return  Time.duration(new Time(), lastTime);
+		return Duration.between(lastTime, now());
 	}
 
-	private static long now()
+	public static float toFloat(Duration duration)
 	{
-		return System.currentTimeMillis();
+		return (float)duration.toNanos() * 1e-9f;
 	}
 
-	private Time lastTime = new Time();
+	public static double toDouble(Duration duration)
+	{
+		return (double)duration.toNanos() * 1e-9;
+	}
+
+	private static LocalDateTime now()
+	{
+		return LocalDateTime.now();
+	}
+
+	private LocalDateTime lastTime = LocalDateTime.now();
 }
