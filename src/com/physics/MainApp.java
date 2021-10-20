@@ -26,6 +26,7 @@ public class MainApp extends Application
 	@Override
 	public void render()
 	{
+		renderer.getGraphics().drawString("Isaac", 50, 50);
 		renderer.getGraphics().drawLine(0, 0, 600, 400);
 		renderer.getGraphics().drawString("hello", 0, y);
 	}
