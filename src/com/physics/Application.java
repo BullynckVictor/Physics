@@ -11,6 +11,7 @@ public class Application
 		timer = new Timer();
 		renderer = new Renderer(title, width, height, false);
 		keyboard = new Keyboard();
+		mouse = new Mouse();
 		renderer.addKeyboard(keyboard);
 	}
 
@@ -42,4 +43,5 @@ public class Application
 	private final Timer timer;
 	protected Renderer renderer;
 	protected Keyboard keyboard;
+	protected Mouse mouse;
 }

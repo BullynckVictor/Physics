@@ -47,6 +47,10 @@ public class Renderer
 	public void present() { bufferStrategy.show(); }
 
 	public void addKeyboard(Keyboard kbd) { frame.addKeyListener(kbd); }
+	public void addMouse(Mouse mouse)
+	{
+		frame.addMouseListener(mouse);
+	}
 	public JFrame getWindow() { return frame; }
 
 	public boolean open() { return opened; }

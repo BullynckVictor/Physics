@@ -1,4 +1,4 @@
-FysicaWetten
+Fysicawetten
 
 F = m * a
     grondbeginsel van de dynamica
