@@ -90,7 +90,7 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	public int getScrollNormal()
 	{
 		int scroll = getScroll();
-		return scroll / Math.abs(scroll);
+		return scroll / (scroll != 0 ? Math.abs(scroll) : 1);
 	}
 	public int peekScrollNormal()
 	{
