@@ -18,7 +18,6 @@ public class IsaacApp
 
 	void render()
 	{
-		renderer.getGraphics().drawString("Hello world!", 50, 50);
 	}
 
 	protected Renderer renderer;

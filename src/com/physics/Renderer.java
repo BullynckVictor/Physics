@@ -49,7 +49,23 @@ public class Renderer
 	public void addKeyboard(Keyboard kbd) { frame.addKeyListener(kbd); }
 	public void addMouse(Mouse mouse)
 	{
-		frame.addMouseListener(mouse);
+		canvas.addMouseListener(mouse);
+		canvas.addMouseMotionListener(mouse);
+		canvas.addMouseWheelListener(mouse);
+	}
+	public Mouse createMouse()
+	{
+		java.awt.Point jp = canvas.getMousePosition();
+		Mouse mouse;
+		if (jp != null) {
+			Point p = new Point(jp.x, jp.y);
+			mouse = new Mouse(p, getSize());
+		}
+		else {
+			mouse = new Mouse();
+		}
+		addMouse(mouse);
+		return mouse;
 	}
 	public JFrame getWindow() { return frame; }
 

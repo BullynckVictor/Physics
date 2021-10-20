@@ -20,22 +20,21 @@ PhysicsEngine:
 
 		collisie ?
 
-	Vector:
-		public float lengthSq() { x*x + y*y }
-		public float length() { sqrt(lengthSq()); }
+Vector:
+	public float lengthSq() { x*x + y*y }
+	public float length() { sqrt(lengthSq()); }
+	public float dot(Vector other)
+	{
 
-		public float dot(Vector other)
-		{
+   	}
 
-		}
+   	private float x;
+   	private float y;
 
-		private float x;
-		private float y;
+   	normaliseren
+   	inwendig product
 
-		normaliseren
-		inwendig product
-
-	<-> "fysica vector" (G, R, A, Z)
+   	<-> "fysica vector" (G, R, A, Z)
 
 positie   -> snelheid -> versnelling ?
 positie ? <- snelheid <- versnelling

@@ -11,7 +11,7 @@ public class Application
 		timer = new Timer();
 		renderer = new Renderer(title, width, height, false);
 		keyboard = new Keyboard();
-		mouse = new Mouse();
+		mouse = renderer.createMouse();
 		renderer.addKeyboard(keyboard);
 	}
 
@@ -29,14 +29,17 @@ public class Application
 	public void run()
 	{
 		int i = 0;
-		while(renderer.open())
-		{
+		while (renderer.open()) {
 			update(timer.mark());
 			renderer.clear();
 			render();
 			renderer.present();
 		}
-		System.out.println("done");
+		renderer.dispose();
+	}
+
+	public void dispose()
+	{
 		renderer.dispose();
 	}
 

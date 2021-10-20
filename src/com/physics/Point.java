@@ -17,6 +17,11 @@ public class Point
 		this.x = x;
 		this.y = y;
 	}
+	Point(Point p)
+	{
+		x = p.x;
+		y = p.y;
+	}
 
 	public int x;
 	public int y;
