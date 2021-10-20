@@ -1,7 +1,5 @@
 package com.physics;
 
-import com.physics.util.Timer;
-
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 
@@ -10,28 +8,27 @@ public class MainApp extends Application
 	public MainApp()
 	{
 		super("Hello world", 600, 400);
-		System.out.println(renderer.getPanelSize());
 	}
 
 	@Override
 	protected void update(Duration dt)
 	{
-		String input = keyboard.peekInput();
-		if (lastLength != input.length())
-		{
-			renderer.setTitle(input);
-			lastLength = input.length();
-		}
+		int speed = 1;
 		if (keyboard.keyPressed(KeyEvent.VK_ESCAPE))
 			close();
+
+		if (keyboard.keyPressed('z') || keyboard.keyPressed(KeyEvent.VK_UP))
+			y -= speed;
+		else if (keyboard.keyPressed('s') || keyboard.keyPressed(KeyEvent.VK_DOWN))
+			y += speed;
 	}
 
 	@Override
-	protected void render()
+	public void render()
 	{
-		graphics().drawLine(0, 0, 600, 400);
-		graphics().drawString("hello", 0, 0);
+		renderer.getGraphics().drawLine(0, 0, 600, 400);
+		renderer.getGraphics().drawString("hello", 0, y);
 	}
 
-	int lastLength = 0;
+	int y = 0;
 }

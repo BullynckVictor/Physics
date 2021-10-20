@@ -1,9 +1,5 @@
 package com.physics;
 
-import com.sun.source.tree.Tree;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;

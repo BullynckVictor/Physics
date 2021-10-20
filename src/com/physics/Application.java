@@ -1,5 +1,4 @@
 package com.physics;
-import java.awt.Graphics2D;
 import java.time.Duration;
 
 import com.physics.util.Timer;
@@ -10,17 +9,20 @@ public class Application
 	public Application(String title, int width, int height)
 	{
 		timer = new Timer();
-		renderer = new Renderer(title, width, height);
+		renderer = new Renderer(title, width, height, false);
 		keyboard = new Keyboard();
-		renderer.addKeyListener(keyboard);
+		renderer.addKeyboard(keyboard);
 	}
 
 	protected void update(Duration dt) {}
-	protected void render() {}
 
 	public void close()
 	{
 		renderer.close();
+	}
+
+	public void render()
+	{
 	}
 
 	public void run()
@@ -29,18 +31,15 @@ public class Application
 		while(renderer.open())
 		{
 			update(timer.mark());
+			renderer.clear();
 			render();
+			renderer.present();
 		}
 		System.out.println("done");
 		renderer.dispose();
 	}
 
-	protected Graphics2D graphics()
-	{
-		return renderer.graphics();
-	}
-
-	private Timer timer;
+	private final Timer timer;
 	protected Renderer renderer;
 	protected Keyboard keyboard;
 }

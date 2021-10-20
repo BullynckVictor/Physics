@@ -1,57 +1,67 @@
 package com.physics;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.Window;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferStrategy;
 
-public class Renderer extends JFrame
+public class Renderer
 {
-	public Renderer(String title, int width, int height)
+	Renderer(String title, int width, int height, boolean resize)
 	{
-		panel = new JPanel();
-		panel.setPreferredSize(new Dimension(width, height));
+		canvas = new Canvas();
+		Dimension size = new Dimension(width, height);
+		canvas.setPreferredSize(size);
 
-		Window w = this;
+		frame = new JFrame(title);
+		frame.add(canvas);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(resize);
+		frame.setVisible(true);
 
-		add(panel);
-		pack();
-		setTitle(title);
-		setLocationRelativeTo(null);
-		setVisible(true);
-		addWindowListener(
+		canvas.createBufferStrategy(2);
+		bufferStrategy = canvas.getBufferStrategy();
+
+		graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
+
+		frame.addWindowListener(
 				new WindowAdapter() {
 					@Override
 					public void windowClosing(WindowEvent e) {
 						opened = false;
-						dispatchEvent(new WindowEvent(w, WindowEvent.WINDOW_CLOSED));
+						frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSED));
 					}
 				}
 		);
+
+		background = Color.WHITE;
 	}
 
-	boolean open()
+	public void clear()
 	{
-		return opened;
+		graphics.setBackground(background);
+		graphics.clearRect(0, 0, getSize().width, getSize().height);
 	}
-	void close()
-	{
-		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-	}
+	public void present() { bufferStrategy.show(); }
 
-	Dimension getPanelSize()
-	{
-		return panel.getSize();
-	}
+	public void addKeyboard(Keyboard kbd) { frame.addKeyListener(kbd); }
+	public JFrame getWindow() { return frame; }
 
-	public Graphics2D graphics()
-	{
-		return (Graphics2D)panel.getGraphics();
-	}
+	public boolean open() { return opened; }
+	public void close() { frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)); }
 
-	private final JPanel panel;
+	public Graphics2D getGraphics() { return graphics; }
+
+	public Dimension getSize() { return canvas.getSize(); }
+
+	public void dispose() { frame.dispose(); }
+
+	public final Color background;
+	private final JFrame frame;
+	private final Canvas canvas;
+	private final BufferStrategy bufferStrategy;
+	private final Graphics2D graphics;
 	private boolean opened = true;
 }
