@@ -42,25 +42,22 @@ public class Renderer
 
 	public Point transform(float x, float y)
 	{
-		float rx = x;
-		float ry = y;
+		//translate
+		float tx = x - camera.x;
+		float ty = y - camera.y;
 
 		//scale
-		rx *= camera.zoom;
-		ry *= camera.zoom;
+		tx *= camera.zoom;
+		ty *= camera.zoom;
 
 		//rotate
 		float cos = (float)Math.cos(-camera.rotation);
 		float sin = (float)Math.sin(-camera.rotation);
-		rx = rx * cos - ry * sin;
-		ry = rx * sin + ry * cos;
-
-		//translate
-		ry *= -1;
-		rx -= camera.x;
-		ry -= camera.y;
+		float rx = tx * cos - ty * sin;
+		float ry = tx * sin + ty * cos;
 
 		//map
+		ry *= -1;
 		Dimension size = getSize();
 		float min = (float)Math.min(size.width, size.height) / 2;
 		rx *= min;
