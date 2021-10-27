@@ -68,6 +68,58 @@ public class Renderer
 		return new Point((int)rx, (int)ry);
 	}
 
+	public void drawCircle(float x, float y, float radius, Color color)
+	{
+		Point p = transform(x, y);
+		getGraphics().setColor(color);
+		Dimension size = getSize();
+		float min = (float)Math.min(size.width, size.height) / 2;
+		int r = (int)(radius * min * camera.zoom);
+		getGraphics().drawOval(p.x - r, p.y - r, r * 2, r * 2);
+	}
+	public void fillCircle(float x, float y, float radius, Color color)
+	{
+		Point p = transform(x, y);
+		getGraphics().setColor(color);
+		Dimension size = getSize();
+		float min = (float)Math.min(size.width, size.height) / 2;
+		int r = (int)(radius * min * camera.zoom);
+		getGraphics().fillOval(p.x - r, p.y - r, r * 2, r * 2);
+	}
+	public void drawRectangle(float x, float y, float width, float height, Color color)
+	{
+		Point p1 = transform(x - width / 2f, y + height / 2f);
+		Point p2 = transform(x + width / 2f, y + height / 2f);
+		Point p3 = transform(x + width / 2f, y - height / 2f);
+		Point p4 = transform(x - width / 2f, y - height / 2f);
+		getGraphics().setColor(color);
+		getGraphics().drawPolygon( new Polygon(
+				new int[]{ p1.x, p2.x, p3.x, p4.x },
+				new int[]{ p1.y, p2.y, p3.y, p4.y },
+				4
+		));
+	}
+	public void fillRectangle(float x, float y, float width, float height, Color color)
+	{
+		Point p1 = transform(x - width / 2f, y + height / 2f);
+		Point p2 = transform(x + width / 2f, y + height / 2f);
+		Point p3 = transform(x + width / 2f, y - height / 2f);
+		Point p4 = transform(x - width / 2f, y - height / 2f);
+		getGraphics().setColor(color);
+		getGraphics().fillPolygon( new Polygon(
+				new int[]{ p1.x, p2.x, p3.x, p4.x },
+				new int[]{ p1.y, p2.y, p3.y, p4.y },
+				4
+		));
+	}
+	void drawLine(float x1, float y1, float x2, float y2, Color color)
+	{
+		Point p1 = transform(x1, y1);
+		Point p2 = transform(x2, y2);
+		getGraphics().setColor(color);
+		getGraphics().drawLine(p1.x, p1.y, p2.x, p2.y);
+	}
+
 	public void clear()
 	{
 		graphics.setBackground(background);

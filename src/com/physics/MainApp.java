@@ -53,24 +53,12 @@ public class MainApp extends Application
 		renderer.getGraphics().drawString("zoom: " + renderer.camera.zoom, 0, 60);
 		renderer.getGraphics().drawString("angle: " + (int)(renderer.camera.rotation * 180f / pi) % 360 + "°", 0, 48);
 		renderer.background = Color.LIGHT_GRAY;
-		Point p1 = renderer.transform(-.5f, .5f);
-		Point p2 = renderer.transform( .5f, .5f);
-		Point p3 = renderer.transform( .5f,-.5f);
-		Point p4 = renderer.transform(-.5f,-.5f);
-		Point c1 = renderer.transform(-.1f, 0);
-		Point c2 = renderer.transform( .1f, 0);
-		Point c3 = renderer.transform(   0, .1f);
-		Point c4 = renderer.transform(   0,-.1f);
-		renderer.getGraphics().drawPolygon( new Polygon(
-					new int[]{ p1.x, p2.x, p3.x, p4.x },
-					new int[]{ p1.y, p2.y, p3.y, p4.y },
-					4
-		));
-		renderer.getGraphics().drawLine(p1.x, p1.y, p3.x, p3.y);
-
-		renderer.getGraphics().setColor(Color.BLUE);
-		renderer.getGraphics().drawLine(c1.x, c1.y, c2.x, c2.y);
-		renderer.getGraphics().drawLine(c3.x, c3.y, c4.x, c4.y);
+		renderer.fillRectangle(0, 0, 1f, 1f, Color.GREEN);
+		renderer.drawRectangle(0, 0, 1f, 1f, Color.BLACK);
+		renderer.fillCircle(0, 0, .5f, Color.LIGHT_GRAY);
+		renderer.drawCircle(0, 0, .5f, Color.GRAY);
+		renderer.drawLine(-.1f, 0, .1f, 0, Color.BLUE);
+		renderer.drawLine(0, -.1f, 0, .1f, Color.BLUE);
 	}
 
 	private final IsaacApp isaacApp;
