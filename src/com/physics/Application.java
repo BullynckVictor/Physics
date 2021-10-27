@@ -1,21 +1,21 @@
 package com.physics;
-import java.time.Duration;
 
+import com.physics.util.DeltaTime;
 import com.physics.util.Timer;
 
 
 public class Application
 {
-	public Application(String title, int width, int height)
+	public Application(String title, int width, int height, boolean resize)
 	{
 		timer = new Timer();
-		renderer = new Renderer(title, width, height, false);
+		renderer = new Renderer(title, width, height, resize);
 		keyboard = new Keyboard();
 		mouse = renderer.createMouse();
 		renderer.addKeyboard(keyboard);
 	}
 
-	protected void update(Duration dt) {}
+	protected void update(DeltaTime dt) {}
 
 	public void close()
 	{
@@ -30,7 +30,7 @@ public class Application
 	{
 		int i = 0;
 		while (renderer.open()) {
-			update(timer.mark());
+			update(new DeltaTime(timer.mark()));
 			renderer.clear();
 			render();
 			renderer.present();

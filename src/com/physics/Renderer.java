@@ -10,6 +10,7 @@ public class Renderer
 {
 	Renderer(String title, int width, int height, boolean resize)
 	{
+		camera = new Camera();
 		canvas = new Canvas();
 		Dimension size = new Dimension(width, height);
 		canvas.setPreferredSize(size);
@@ -37,6 +38,37 @@ public class Renderer
 		);
 
 		background = Color.WHITE;
+	}
+
+	public Point transform(float x, float y)
+	{
+		float rx = x;
+		float ry = y;
+
+		//scale
+		rx *= camera.zoom;
+		ry *= camera.zoom;
+
+		//rotate
+		float cos = (float)Math.cos(-camera.rotation);
+		float sin = (float)Math.sin(-camera.rotation);
+		rx = rx * cos - ry * sin;
+		ry = rx * sin + ry * cos;
+
+		//translate
+		ry *= -1;
+		rx -= camera.x;
+		ry -= camera.y;
+
+		//map
+		Dimension size = getSize();
+		float min = (float)Math.min(size.width, size.height) / 2;
+		rx *= min;
+		ry *= min;
+		rx += (float)size.width / 2;
+		ry += (float)size.height / 2;
+
+		return new Point((int)rx, (int)ry);
 	}
 
 	public void clear()
@@ -78,7 +110,8 @@ public class Renderer
 
 	public void dispose() { frame.dispose(); }
 
-	public final Color background;
+	public Color background;
+	public Camera camera;
 	private final JFrame frame;
 	private final Canvas canvas;
 	private final BufferStrategy bufferStrategy;

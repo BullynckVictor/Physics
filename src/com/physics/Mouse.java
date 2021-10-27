@@ -26,21 +26,21 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1)
-			System.out.println("left pressed");
+			leftPressed = true;
 		else if (e.getButton() == MouseEvent.BUTTON2)
-			System.out.println("middle pressed");
+			middlePressed = true;
 		else if (e.getButton() == MouseEvent.BUTTON3)
-			System.out.println("right pressed");
+			rightPressed = true;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1)
-			System.out.println("left released");
+			leftPressed = false;
 		else if (e.getButton() == MouseEvent.BUTTON2)
-			System.out.println("middle released");
+			middlePressed = false;
 		else if (e.getButton() == MouseEvent.BUTTON3)
-			System.out.println("right released");
+			rightPressed = false;
 	}
 
 	@Override
@@ -98,9 +98,23 @@ public class Mouse implements MouseListener, MouseMotionListener, MouseWheelList
 		return scroll / Math.abs(scroll);
 	}
 
+	public boolean leftPressed()
+	{
+		return leftPressed;
+	}
+	public boolean middlePressed()
+	{
+		return middlePressed;
+	}
+	public boolean rightPressed()
+	{
+		return rightPressed;
+	}
+
 	private final Point position;
 	private boolean inWindow = false;
 	private boolean leftPressed = false;
+	private boolean middlePressed = false;
 	private boolean rightPressed = false;
 	private int wheelDelta = 0;
 }

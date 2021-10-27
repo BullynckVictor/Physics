@@ -1,6 +1,6 @@
 package com.physics;
 
-import java.time.Duration;
+import com.physics.util.DeltaTime;
 
 public class IsaacApp
 {
@@ -11,7 +11,7 @@ public class IsaacApp
 		mouse = ms;
 	}
 
-	void update(Duration dt)
+	void update(DeltaTime dt)
 	{
 
 	}
