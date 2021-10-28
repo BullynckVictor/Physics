@@ -98,4 +98,3 @@ public class Vector {
 		this.y /= l;
 	}
 }
-
