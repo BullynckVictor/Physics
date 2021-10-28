@@ -3,6 +3,8 @@ package com.physics;
 import com.physics.util.DeltaTime;
 import com.physics.util.Timer;
 
+import java.util.TreeMap;
+
 
 public class Application
 {
@@ -13,15 +15,14 @@ public class Application
 		keyboard = new Keyboard();
 		mouse = renderer.createMouse();
 		renderer.addKeyboard(keyboard);
+		scenes = new TreeMap<>();
 	}
 
 	protected void update(DeltaTime dt) {}
-
 	public void close()
 	{
 		renderer.close();
 	}
-
 	public void render()
 	{
 	}
@@ -43,8 +44,36 @@ public class Application
 		renderer.dispose();
 	}
 
+	protected void addScene(String name, Scene scene)
+	{
+		scenes.put(name, scene);
+		scene.setRenderer(renderer);
+		activeScene = scene;
+	}
+	protected void setActiveScene(String name)
+	{
+		activeScene = scenes.get(name);
+		if (activeScene == null)
+			throw new IllegalArgumentException("Scene \"" + name + "\" not found in SceneMap");
+	}
+	protected void setActiveScene(Scene scene)
+	{
+		activeScene = scene;
+		if (!scenes.containsValue(scene))
+			throw new IllegalArgumentException("Scene \"" + scene.toString() + "\" not found in SceneMap");
+	}
+
+	protected Scene getActiveScene()
+	{
+		if (activeScene == null)
+			throw new NullPointerException("Active Scene was null, try adding a scene before calling getActiveScene()");
+		return activeScene;
+	}
+
 	private final Timer timer;
 	protected Renderer renderer;
 	protected Keyboard keyboard;
 	protected Mouse mouse;
+	private final TreeMap<String, Scene> scenes;
+	private Scene activeScene;
 }

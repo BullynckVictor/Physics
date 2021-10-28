@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,7 +19,7 @@ public class Main
 	}
 
 	public static void main(String[] args) {
-		MainApp app = null;
+		MainApp app;
 		try {
 			app = new MainApp();
 			app.run();
@@ -55,10 +54,9 @@ public class Main
 			JOptionPane.showMessageDialog(null,
 					message,
 					"Fatal Exception",
-					JOptionPane.ERROR_MESSAGE
+					JOptionPane.INFORMATION_MESSAGE
 			);
-			if (app != null)
-				app.dispose();
+			System.exit(1);
 		}
 	}
 }
