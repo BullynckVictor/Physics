@@ -44,23 +44,28 @@ public class Application
 		renderer.dispose();
 	}
 
-	protected void addScene(String name, Scene scene)
-	{
+	protected void addScene(String name, Scene scene) throws Exception {
 		scenes.put(name, scene);
 		scene.setRenderer(renderer);
-		activeScene = scene;
+		setActiveScene(scene);
 	}
-	protected void setActiveScene(String name)
+	protected void setActiveScene(String name) throws Exception
 	{
+		unloadActiveScene();
 		activeScene = scenes.get(name);
 		if (activeScene == null)
 			throw new IllegalArgumentException("Scene \"" + name + "\" not found in SceneMap");
+		renderer.getWindow().setTitle(name);
+		activeScene.load();
 	}
-	protected void setActiveScene(Scene scene)
+	protected void setActiveScene(Scene scene) throws Exception
 	{
+		unloadActiveScene();
 		activeScene = scene;
 		if (!scenes.containsValue(scene))
 			throw new IllegalArgumentException("Scene \"" + scene.toString() + "\" not found in SceneMap");
+		renderer.getWindow().setTitle("Unknown Scene");
+		activeScene.load();
 	}
 
 	protected Scene getActiveScene()
@@ -68,6 +73,12 @@ public class Application
 		if (activeScene == null)
 			throw new NullPointerException("Active Scene was null, try adding a scene before calling getActiveScene()");
 		return activeScene;
+	}
+
+	protected void unloadActiveScene()
+	{
+		if (activeScene != null)
+			activeScene.unload();
 	}
 
 	private final Timer timer;

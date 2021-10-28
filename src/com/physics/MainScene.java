@@ -2,11 +2,19 @@ package com.physics;
 
 import com.physics.util.DeltaTime;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class MainScene extends Scene {
-	MainScene() {}
+	MainScene() {
+	}
+
+	@Override
+	public void load() throws Exception {
+		sprite = ImageIO.read(new File("assets/test.png"));
+	}
 
 	@Override
 	public void update(DeltaTime dt)
@@ -50,10 +58,14 @@ public class MainScene extends Scene {
 		renderer.drawLine(-.1f, 0, .1f, 0, Color.BLUE);
 		renderer.drawLine(0, -.1f, 0, .1f, Color.BLUE);
 
+		renderer.getGraphics().drawImage(sprite, 300, 200, null);
+
 		renderer.getGraphics().setColor(Color.BLACK);
 		renderer.getGraphics().drawString("camera", 2, 12);
 		renderer.getGraphics().drawString("position: (" + renderer.camera.x + ", " + renderer.camera.y + ")", 14, 24);
 		renderer.getGraphics().drawString("rotation: " + (int)(renderer.camera.rotation * 180f / pi) + "°", 14, 36);
 		renderer.getGraphics().drawString("zoom: " + renderer.camera.zoom, 14, 48);
 	}
+
+	Image sprite;
 }

@@ -2,9 +2,11 @@ package com.physics;
 
 import com.physics.util.DeltaTime;
 
+import java.io.IOException;
+
 public class Scene {
-	Scene() {}
-	Scene(Renderer renderer)
+	public Scene() {}
+	public Scene(Renderer renderer)
 	{
 		setRenderer(renderer);
 	}
@@ -15,6 +17,12 @@ public class Scene {
 		mouse = renderer.createMouse();
 		keyboard = new Keyboard();
 		renderer.addKeyboard(keyboard);
+	}
+
+	public void load() throws Exception {
+	}
+	public void unload()
+	{
 	}
 
 	public void update(DeltaTime dt)

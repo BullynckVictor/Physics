@@ -1,10 +1,9 @@
-package com.physics;
+package com.physics.diart;
 
+import com.physics.Scene;
 import com.physics.util.DeltaTime;
 
-public class IsaacScene extends Scene {
-
-	IsaacScene() {}
+public class DiartScene extends Scene {
 
 	@Override
 	public void update(DeltaTime dt)
