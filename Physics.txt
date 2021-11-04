@@ -51,3 +51,57 @@ double
 (sqrt(0.5), sqrt(0.5))
 
 https://danceswithcode.net/engineeringnotes/rotations_in_2d/rotations_in_2d.html
+
+botsende objecten wetten
+    Fres = Fz + Fw (luchtwrijving) + Fa (archimedeskracht blijkbaar ook) + Fm (=magnuskracht: karcht door rotatie van de bal)  enkel in de lucht
+
+    Fz = m*g (massa object; zwaarteveldsterkte)
+        Richting en zin: Loodrecht naar beneden
+
+    Fw:
+        Grootte:
+            bij ballen:
+            als Re (Reynolds number = (rho * D(diameter)*v)/µ(viscositeit = 1.8E-5 bij 20°C en dichtheid lucht)
+                < 1
+                => 'wet van Stokes'
+                    Fw = 6pi*µ*r*v (r = straal)
+                > 1
+                => ingewikkeld: beter algemeen gebruiken
+            algemeen:
+                Fw = 0.5 * rho * v² * A (geprojecteerde oppv loodrecht op richting) * Cw (weerstandscoefficient afhankelijk van vorm)
+                voor Cw zou ik een tabel gebruiken aangezien dat te maken heeft met thermodynammica enzo:
+                    (https://www.researchgate.net/profile/Elsayed-Aziz-2/publication/273771608/figure/tbl1/AS:668514876669957@1536397775189/Typical-drag-coefficients-for-regular-2-D-objects.png)
+        Richting:
+            evenwijdig aan v
+        Zin:
+            tegengesteld aan v
+    Fa:
+        Grootte:
+            Fa = rho * g * V (kunnen we V in 2d gelijk stellen aan A?)
+        Richting:
+            evenwijdig met Fz
+        Zin:
+            Tegengesteld aan Fz
+
+en dan nog botsingen natuurlijk...
+    zonder enerigieverlies 3 opties:
+           elastisch
+           half-elastisch
+           niet-elastisch
+
+
+gegevens nodig:
+    per voorwerp:
+        massa,
+        afmetingen voorwerp (cirkel: straal; rechthoek: basis en hoogte; andere voorwerpen?)
+        misschien ineens ook weerstandscoefficient
+        (begin)snelheidvector
+        (begin)positiesvector
+        (begin)versnellingsvector
+
+    algemeen:
+        temperatuur
+        luchtdichtheid
+        luchtdruk
+        laminaire of turbulente stroming (ik stel laminair voor wat makkelijker is)
+
