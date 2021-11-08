@@ -4,71 +4,71 @@ public class Camera
 {
 	public Camera()
 	{
+		position = new Vector();
 	}
 
-	public Camera(float x, float y)
+	public Camera(Vector position)
 	{
-		this.x = x;
-		this.y = y;
+		this.position = position;
 	}
-	public Camera(float x, float y, float rotation)
+	public Camera(Vector position, float rotation)
 	{
-		this.x = x;
-		this.y = y;
+		this.position = position;
 		this.rotation = rotation;
 	}
-	public Camera(float x, float y, float rotation, float zoom)
+	public Camera(Vector position, float rotation, float zoom)
 	{
-		this.x = x;
-		this.y = y;
+		this.position = position;
 		this.rotation = rotation;
 		this.zoom = zoom;
 	}
 
-	void moveRelativeX(float x)
+	public void moveRelativeX(float x)
 	{
 		if (shouldRotate())
 		{
 			float cos = (float) Math.cos(-rotation);
 			float sin = (float) Math.sin(-rotation);
-			this.x += x * cos;
-			this.y += x * sin;
+			position.x += x * cos;
+			position.y += x * sin;
 		}
 		else
 		{
-			this.x += x;
-			this.y += y;
+			position.x += x;
 		}
 	}
-	void moveRelativeY(float y)
+	public void moveRelativeY(float y)
 	{
 		if (shouldRotate())
 		{
 			float cos = (float) Math.cos(-rotation);
 			float sin = (float) Math.sin(-rotation);
-			this.x += -y * sin;
-			this.y += y * cos;
+			position.x += -y * sin;
+			position.y += y * cos;
 		}
 		else
 		{
-			this.x += x;
-			this.y += y;
+			position.y += y;
 		}
 	}
-	void moveRelative(float x, float y)
+	public void moveRelative(float x, float y)
 	{
 		if (shouldRotate())
 		{
 			float cos = (float)Math.cos(rotation);
 			float sin = (float)Math.sin(rotation);
-			this.x += x * cos - y * sin;
-			this.y += x * sin + y * cos;
+			position.x += x * cos - y * sin;
+			position.y += x * sin + y * cos;
 		}
 		else
 		{
-			this.x += x;
-			this.y += y;
+			position.x += x;
+			position.y += y;
 		}
+	}
+	public void moveRelative(Vector xy)
+	{
+		moveRelative(xy.x, xy.y);
 	}
 
 	public boolean shouldRotate()
@@ -76,8 +76,7 @@ public class Camera
 		return rotation != 0f;
 	}
 
-	public float x = 0;
-	public float y = 0;
+	public final Vector position;
 	public float rotation = 0;
 	public float zoom = 1;
 }

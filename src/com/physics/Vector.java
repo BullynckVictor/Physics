@@ -2,8 +2,8 @@ package com.physics;
 
 public class Vector {
 
-	float x;
-	float y;
+	public float x;
+	public float y;
 
 	public Vector(float x, float y) {
 		this.x = x;
@@ -94,7 +94,9 @@ public class Vector {
 
 	public void normalise() {
 		float l = length();
-		this.x /= l;
-		this.y /= l;
+		if (l != 0) {
+			this.x /= l;
+			this.y /= l;
+		}
 	}
 }

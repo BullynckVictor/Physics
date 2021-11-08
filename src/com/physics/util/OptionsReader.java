@@ -17,7 +17,7 @@ public class OptionsReader {
 	public OptionsReader(String filename) throws IOException {
 		valueMap = new TreeMap<>();
 		defaultMap = new TreeMap<>();
-		BufferedReader file = new BufferedReader(new FileReader("Developer.txt"));
+		BufferedReader file = new BufferedReader(new FileReader(filename));
 		Stream<String> lines = file.lines();
 		for (String line : lines.toList())
 		{

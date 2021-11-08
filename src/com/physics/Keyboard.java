@@ -39,6 +39,25 @@ public class Keyboard implements KeyListener
 		return input.toString();
 	}
 
+	public ArrayList<Integer> pressedKeys()
+	{
+		ArrayList<Integer> list = new ArrayList<>();
+
+		for (int i = 0; i < pressedKeys.length; ++i)
+		{
+			if (pressedKeys[i])
+				list.add(i);
+		}
+
+		for (Map.Entry<Integer, Boolean> e : pressedKeyMap.entrySet())
+		{
+			if (e.getValue())
+				list.add(e.getKey());
+		}
+
+		return list;
+	}
+
 	public boolean keyPressed(int key)
 	{
 		return getPressedKey(key);

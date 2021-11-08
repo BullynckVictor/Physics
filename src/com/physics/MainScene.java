@@ -62,7 +62,7 @@ public class MainScene extends Scene {
 
 		renderer.getGraphics().setColor(Color.BLACK);
 		renderer.getGraphics().drawString("camera", 2, 12);
-		renderer.getGraphics().drawString("position: (" + renderer.camera.x + ", " + renderer.camera.y + ")", 14, 24);
+		renderer.getGraphics().drawString("position: (" + renderer.camera.position.x + ", " + renderer.camera.position.y + ")", 14, 24);
 		renderer.getGraphics().drawString("rotation: " + (int)(renderer.camera.rotation * 180f / pi) + "°", 14, 36);
 		renderer.getGraphics().drawString("zoom: " + renderer.camera.zoom, 14, 48);
 	}
