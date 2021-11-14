@@ -8,10 +8,12 @@ public class IsaacScene extends Scene {
 	@Override
 	public void update(DeltaTime dt)
 	{
+
 	}
 
 	@Override
 	public void render()
 	{
+
 	}
 }

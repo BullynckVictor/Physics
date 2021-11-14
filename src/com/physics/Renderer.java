@@ -90,7 +90,7 @@ public class Renderer
 		getGraphics().setColor(color);
 		float rx = x * min - width * min / 2;
 		float ry = y * min - height * min / 2;
-		graphics.fillRect((int)rx, (int)ry, (int)(width * min), (int)(height * min));
+		graphics.drawRect((int)rx, (int)ry, (int)(width * min), (int)(height * min));
 	}
 	public void drawRectangle(float x, float y, float width, float height, Color color)
 	{
