@@ -14,7 +14,7 @@ import java.io.IOException;
 public class MainApp extends Application
 {
 	public MainApp() throws Exception {
-		super("Hello world", 600, 400, false);
+		super("Hello world", 600, 400, resizeable());
 
 		addScene("Main Development Scene", new MainScene(renderer));
 		addScene("Isaac Development Scene", new IsaacScene(renderer));
@@ -22,16 +22,19 @@ public class MainApp extends Application
 		addScene("Victor Development Scene", new VictorScene(renderer));
 
 		OptionsReader options;
-
-		try {
-			options = new OptionsReader("Developer.txt");
-		}
-		catch (IOException e) {
-			options = new OptionsReader();
-		}
-
+		options = new OptionsReader("Developer.txt");
 		options.addDefault("starting scene", "Main Development Scene");
+
 		setActiveScene(options.getValue("starting scene"));
+	}
+
+	static boolean resizeable()
+	{
+		OptionsReader options;
+		options = new OptionsReader("Developer.txt");
+		options.addDefault("resizeable", "false");
+
+		return options.getValue("resizeable").equalsIgnoreCase("true");
 	}
 
 	@Override

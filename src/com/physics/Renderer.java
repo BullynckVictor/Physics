@@ -2,11 +2,14 @@ package com.physics;
 
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferStrategy;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Renderer
 {
@@ -15,7 +18,7 @@ public class Renderer
 		camera = new Camera();
 		canvas = new Canvas();
 		Dimension size = new Dimension(width, height);
-		canvas.setPreferredSize(size);
+		canvas.setSize(size);
 
 		frame = new JFrame(title);
 		frame.add(canvas);
@@ -27,7 +30,7 @@ public class Renderer
 		canvas.createBufferStrategy(2);
 		bufferStrategy = canvas.getBufferStrategy();
 
-		graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
+		graphics = (Graphics2D)bufferStrategy.getDrawGraphics();
 
 		frame.addWindowListener(
 				new WindowAdapter() {
@@ -38,12 +41,41 @@ public class Renderer
 					}
 				}
 		);
+		canvas.addComponentListener( new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				onResize(e.getComponent().getSize());
+			}
+		});
 
 		background = Color.WHITE;
 
 		baseTransform = graphics.getTransform();
 		min = Math.min(size.width, size.height) / 2.0f;
 		middle = new Point(size.width / 2, size.height / 2);
+	}
+
+	public void setSize(int width, int height)
+	{
+		frame.setSize(width, height);
+		canvas.setSize(width, height);
+	}
+
+	private void onResize(Dimension size)
+	{
+		mutex.lock();
+
+		canvas.createBufferStrategy(2);
+		bufferStrategy = canvas.getBufferStrategy();
+
+		graphics = (Graphics2D)bufferStrategy.getDrawGraphics();
+
+		baseTransform = graphics.getTransform();
+		min = Math.min(size.width, size.height) / 2.0f;
+		middle.x = size.width / 2;
+		middle.y = size.height / 2;
+
+		mutex.unlock();
 	}
 
 	public void drawCircle(float x, float y, float radius, Color color, Transform transform)
@@ -189,9 +221,11 @@ public class Renderer
 		graphics.clearRect(0, 0, getSize().width, getSize().height);
 		setTransform();
 	}
-	public void present()
+	public synchronized void present()
 	{
+		mutex.lock();
 		bufferStrategy.show();
+		mutex.unlock();
 	}
 
 	public void addKeyboard(Keyboard kbd) { frame.addKeyListener(kbd); }
@@ -237,10 +271,11 @@ public class Renderer
 	public Camera camera;
 	private final JFrame frame;
 	private final Canvas canvas;
-	private final BufferStrategy bufferStrategy;
-	private final Graphics2D graphics;
+	private BufferStrategy bufferStrategy;
+	private Graphics2D graphics;
 	private boolean opened = true;
-	private final AffineTransform baseTransform;
+	private AffineTransform baseTransform;
 	private float min;
 	private final Point middle;
+	private ReentrantLock mutex = new ReentrantLock();
 }

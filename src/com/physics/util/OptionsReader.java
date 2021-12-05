@@ -14,18 +14,20 @@ public class OptionsReader {
 		defaultMap = new TreeMap<>();
 	}
 
-	public OptionsReader(String filename) throws IOException {
+	public OptionsReader(String filename) {
 		valueMap = new TreeMap<>();
 		defaultMap = new TreeMap<>();
-		BufferedReader file = new BufferedReader(new FileReader(filename));
-		Stream<String> lines = file.lines();
-		for (String line : lines.toList())
-		{
-			int index = line.indexOf(':');
-			String key = (String) line.subSequence(0, index);
-			String value = ((String) line.subSequence(index + 1, line.length())).strip();
-			valueMap.put(key, value);
+		try {
+			BufferedReader file = new BufferedReader(new FileReader(filename));
+			Stream<String> lines = file.lines();
+			for (String line : lines.toList()) {
+				int index = line.indexOf(':');
+				String key = (String) line.subSequence(0, index);
+				String value = ((String) line.subSequence(index + 1, line.length())).strip();
+				valueMap.put(key, value);
+			}
 		}
+		catch (IOException ignored) {}
 	}
 
 	public void addDefault(String key, String value)
