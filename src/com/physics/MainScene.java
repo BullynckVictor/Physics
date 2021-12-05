@@ -8,7 +8,8 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class MainScene extends Scene {
-	MainScene() {
+	MainScene(Renderer renderer) {
+		super(renderer);
 	}
 
 	@Override
@@ -25,23 +26,23 @@ public class MainScene extends Scene {
 		float dx = 0;
 		float dy = 0;
 
-		if (keyboard.keyPressed('z') || keyboard.keyPressed(KeyEvent.VK_UP))
+		if (input.keyboard.keyPressed('z') || input.keyboard.keyPressed(KeyEvent.VK_UP))
 			dy += speed * dt.seconds();
-		if (keyboard.keyPressed('s') || keyboard.keyPressed(KeyEvent.VK_DOWN))
+		if (input.keyboard.keyPressed('s') || input.keyboard.keyPressed(KeyEvent.VK_DOWN))
 			dy -= speed * dt.seconds();
-		if (keyboard.keyPressed('q') || keyboard.keyPressed(KeyEvent.VK_LEFT))
+		if (input.keyboard.keyPressed('q') || input.keyboard.keyPressed(KeyEvent.VK_LEFT))
 			dx -= speed * dt.seconds();
-		if (keyboard.keyPressed('d') || keyboard.keyPressed(KeyEvent.VK_RIGHT))
+		if (input.keyboard.keyPressed('d') || input.keyboard.keyPressed(KeyEvent.VK_RIGHT))
 			dx += speed * dt.seconds();
-		if (keyboard.keyPressed('a'))
+		if (input.keyboard.keyPressed('a'))
 			renderer.camera.rotation += rotateSpeed * dt.seconds();
-		if (keyboard.keyPressed('e'))
+		if (input.keyboard.keyPressed('e'))
 			renderer.camera.rotation -= rotateSpeed * dt.seconds();
 
 		renderer.camera.moveRelative(dx, dy);
 
 		float e = 0.5772156649f;
-		renderer.camera.zoom *= Math.pow(e, (float)mouse.getScrollNormal());
+		renderer.camera.zoom *= Math.pow(e, (float)input.mouse.getScrollNormal());
 	}
 
 	@Override

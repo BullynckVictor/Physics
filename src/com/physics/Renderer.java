@@ -223,6 +223,13 @@ public class Renderer
 	public Graphics2D getGraphics() { return graphics; }
 
 	public Dimension getSize() { return canvas.getSize(); }
+	public Vector getRelativeSize()
+	{
+		Dimension s = getSize();
+		Vector size = new Vector(s.width, s.height);
+		size.div(min * 2);
+		return size;
+	}
 
 	public void dispose() { frame.dispose(); }
 

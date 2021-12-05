@@ -16,10 +16,10 @@ public class MainApp extends Application
 	public MainApp() throws Exception {
 		super("Hello world", 600, 400, false);
 
-		addScene("Main Development Scene", new MainScene());
-		addScene("Isaac Development Scene", new IsaacScene());
-		addScene("Diart Development Scene", new DiartScene());
-		addScene("Victor Development Scene", new VictorScene());
+		addScene("Main Development Scene", new MainScene(renderer));
+		addScene("Isaac Development Scene", new IsaacScene(renderer));
+		addScene("Diart Development Scene", new DiartScene(renderer));
+		addScene("Victor Development Scene", new VictorScene(renderer));
 
 		OptionsReader options;
 
@@ -37,6 +37,7 @@ public class MainApp extends Application
 	@Override
 	protected void update(DeltaTime dt)
 	{
+		getActiveScene().input.handleInput();
 		getActiveScene().update(dt);
 	}
 

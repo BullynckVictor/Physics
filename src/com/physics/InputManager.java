@@ -60,8 +60,8 @@ public class InputManager {
 	}
 
 	private final Renderer renderer;
-	private final Keyboard keyboard;
-	private final Mouse mouse;
+	public final Keyboard keyboard;
+	public final Mouse mouse;
 	private int actionCount = 0;
 	final TreeMap<Integer, Integer> keyToActionMap;
 	final ArrayList<Boolean> actions;

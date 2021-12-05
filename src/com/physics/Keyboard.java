@@ -15,17 +15,17 @@ public class Keyboard implements KeyListener
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		input.append(e.getKeyChar());
+		input.append(e.getKeyCode());
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		setPressedKey(e.getKeyChar(), true);
+		setPressedKey(e.getKeyCode(), true);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		setPressedKey(e.getKeyChar(), false);
+		setPressedKey(e.getKeyCode(), false);
 	}
 
 	public String getInput()

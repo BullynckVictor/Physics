@@ -5,6 +5,11 @@ public class Vector {
 	public float x;
 	public float y;
 
+	public Vector(Vector other) {
+		x = other.x;
+		y = other.y;
+	}
+
 	public Vector(float x, float y) {
 		this.x = x;
 		this.y = y;

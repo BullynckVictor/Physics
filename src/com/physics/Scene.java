@@ -14,9 +14,7 @@ public class Scene {
 	void setRenderer(Renderer renderer)
 	{
 		this.renderer = renderer;
-		mouse = renderer.createMouse();
-		keyboard = new Keyboard();
-		renderer.addKeyboard(keyboard);
+		input = new InputManager(renderer);
 	}
 
 	public void load() throws Exception {
@@ -34,6 +32,5 @@ public class Scene {
 	}
 
 	protected Renderer renderer;
-	protected Keyboard keyboard;
-	protected Mouse mouse;
+	protected InputManager input;
 }

@@ -46,7 +46,8 @@ public class Application
 
 	protected void addScene(String name, Scene scene) throws Exception {
 		scenes.put(name, scene);
-		scene.setRenderer(renderer);
+		if (scene.renderer == null)
+			scene.setRenderer(renderer);
 		setActiveScene(scene);
 	}
 	protected void setActiveScene(String name) throws Exception
