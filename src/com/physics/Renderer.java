@@ -193,6 +193,45 @@ public class Renderer
 		drawLine(p1.x, p1.y, p2.x, p2.y, color);
 	}
 
+	public void drawString(String string, float x, float y, Color color, Transform transform)
+	{
+		setTransform(transform);
+		getGraphics().scale(1, -1);
+		getGraphics().setColor(color);
+		getGraphics().drawString(string, (int)(x * min), (int)(y * min));
+	}
+	public void drawString(String string, float x, float y, Color color)
+	{
+		drawString(string, x, y, color, null);
+	}
+	public void drawString(String string, Vector p, Color color, Transform transform)
+	{
+		drawString(string, p.x, p.y, color, transform);
+	}
+	public void drawString(String string, Vector p, Color color)
+	{
+		drawString(string, p, color, null);
+	}
+	public void drawStringUI(String string, float x, float y, Color color)
+	{
+		getGraphics().setTransform(baseTransform);
+		getGraphics().translate(middle.x, middle.y);
+		getGraphics().setColor(color);
+		getGraphics().drawString(string, (int)(x * min), (int)(-y * min));
+	}
+	public void drawStringUI(String string, Vector p, Color color)
+	{
+		drawStringUI(string, p.x, p.y, color);
+	}
+	public void setFont(String name, int style, int size)
+	{
+		graphics.setFont(new Font(name, style, size));
+	}
+	public void setFont(String name)
+	{
+		graphics.setFont(new Font(name, Font.PLAIN, 12));
+	}
+
 
 	public void setTransform()
 	{

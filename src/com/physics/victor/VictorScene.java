@@ -66,7 +66,10 @@ public class VictorScene extends Scene {
 	@Override
 	public void render()
 	{
-		renderer.fillRectangle(0, 0, .5f, .5f, Color.DARK_GRAY, transform);
+		renderer.setFont("Consolas", Font.BOLD, 12);
+		renderer.drawRectangle(0, 0, .5f, .5f, Color.DARK_GRAY, transform);
+		renderer.drawString("Hello renderer.drawString()!", 0, 0, Color.BLUE);
+		renderer.drawStringUI("UI string", -renderer.getRelativeSize().x + .03f, .9f, Color.BLACK);
 	}
 
 	Transform transform;
