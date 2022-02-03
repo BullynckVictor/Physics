@@ -2,13 +2,12 @@ package com.physics;
 
 import com.physics.util.DeltaTime;
 
-import java.io.IOException;
-
 public class Scene {
-	public Scene() {}
+	public Scene() { engine = new Engine(); }
 	public Scene(Renderer renderer)
 	{
 		setRenderer(renderer);
+		engine = new Engine();
 	}
 
 	void setRenderer(Renderer renderer)
@@ -21,6 +20,7 @@ public class Scene {
 	}
 	public void unload()
 	{
+		engine.clear();
 	}
 
 	public void update(DeltaTime dt)
@@ -33,4 +33,6 @@ public class Scene {
 
 	protected Renderer renderer;
 	protected InputManager input;
+	protected final Engine engine;
+	public DeltaTime updateTime = new DeltaTime();
 }

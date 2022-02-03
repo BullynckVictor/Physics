@@ -1,14 +1,29 @@
 package com.physics.util;
 import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class DeltaTime {
 
+	public DeltaTime()
+	{
+		this.duration = Duration.of(0, ChronoUnit.SECONDS);
+	}
 	public DeltaTime(Duration duration)
 	{
 		this.duration = duration;
 	}
+	public DeltaTime(long duration, TemporalUnit unit)
+	{
+		this.duration = Duration.of(duration, unit);
+	}
 
-	public float secondsLong()
+	public void set(long duration, TemporalUnit unit)
+	{
+		this.duration = Duration.of(duration, unit);
+	}
+
+	public long secondsLong()
 	{
 		return duration.toSeconds();
 	}

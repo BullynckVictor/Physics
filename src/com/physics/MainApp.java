@@ -6,10 +6,8 @@ import com.physics.util.DeltaTime;
 import com.physics.util.OptionsReader;
 import com.physics.victor.VictorScene;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.time.temporal.ChronoUnit;
+
 
 public class MainApp extends Application
 {

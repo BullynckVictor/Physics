@@ -3,7 +3,10 @@ package com.physics;
 import com.physics.util.DeltaTime;
 import com.physics.util.Timer;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.*;
 
 
 public class Application
@@ -16,6 +19,7 @@ public class Application
 		mouse = renderer.createMouse();
 		renderer.addKeyboard(keyboard);
 		scenes = new TreeMap<>();
+		service = Executors.newSingleThreadScheduledExecutor();
 	}
 
 	protected void update(DeltaTime dt) {}
@@ -29,14 +33,18 @@ public class Application
 
 	public void run()
 	{
-		int i = 0;
 		while (renderer.open()) {
-			update(new DeltaTime(timer.mark()));
-			renderer.clear();
-			render();
-			renderer.present();
+			tick();
 		}
 		renderer.dispose();
+	}
+
+	private void tick()
+	{
+		update(new DeltaTime(timer.mark()));
+		renderer.clear();
+		render();
+		renderer.present();
 	}
 
 	public void dispose()
@@ -83,6 +91,7 @@ public class Application
 	}
 
 	private final Timer timer;
+	private final ScheduledExecutorService service;
 	protected Renderer renderer;
 	protected Keyboard keyboard;
 	protected Mouse mouse;
