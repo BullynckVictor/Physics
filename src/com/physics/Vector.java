@@ -48,13 +48,15 @@ public class Vector {
 		this.x -= value;
 		this.y -= value;
 	}
-	public void mul(float value) {
+	public Vector mul(float value) {
 		this.x *= value;
 		this.y *= value;
+		return null;
 	}
-	public void div(float value) {
+	public Vector div(float value) {
 		this.x /= value;
 		this.y /= value;
+		return null;
 	}
 
 	// basis bewerkingen met vectoren
@@ -163,4 +165,8 @@ public class Vector {
 		vec.normalise();
 		return vec;
 	}
+
+
+
+
 }
