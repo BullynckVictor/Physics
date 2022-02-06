@@ -24,17 +24,19 @@ public class Engine
 
 			//total force
 			ResultantForce.add(Gravity);
+			ResultantForce.add(object.force);
 
 
-			//acceleratoin
+			//acceleration
 			object.acceleration = Vector.div(ResultantForce, object.mass);
+
+			//position
+			object.position = Vector.add(object.position, Vector.add(Vector.mul(object.acceleration, dt.seconds()*dt.seconds()/2), Vector.mul(object.velocity, dt.seconds())));
 
 			//velocity
 			object.velocity = Vector.add(object.velocity, Vector.mul(object.acceleration, dt.seconds()));
 
-			//position
-			object.position = Vector.add(object.position, Vector.mul(object.velocity, dt.seconds()));
-
+			object.force = Vector.sub(object.force,object.force); //waarschijnlijk is er een beter manier ma kheb geen zin om meet na te denken
 			ResultantForce = null;
 		}
 	}
