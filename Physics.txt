@@ -14,7 +14,7 @@ PhysicsEngine:
 		F = m * a
 		wat is resulterende kracht?
 		a = F / m;
-		velocity = velocity + a
+		velocity = velocity + a*dt
 		position = position + velocity;
 		berekenen F is grootste deel
 

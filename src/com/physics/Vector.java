@@ -48,15 +48,14 @@ public class Vector {
 		this.x -= value;
 		this.y -= value;
 	}
-	public Vector mul(float value) {
+	public void mul(float value) {
 		this.x *= value;
 		this.y *= value;
-		return null;
+
 	}
-	public Vector div(float value) {
+	public void div(float value) {
 		this.x /= value;
 		this.y /= value;
-		return null;
 	}
 
 	// basis bewerkingen met vectoren

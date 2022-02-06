@@ -15,18 +15,27 @@ public class Engine
 
 	public void tick(DeltaTime dt)
 	{
-		for (PhysicsObject object : objects)
-		{
-		float yGravity = object.mass*9.81f;
-		Vector Gravity = new Vector(0f,yGravity);
-		Vector ResultantForce = new Vector();
-		ResultantForce.add(Gravity);
-		object.acceleration = ResultantForce.div(object.mass);
-		object.velocity = object.acceleration.mul(dt.seconds());
-		object.position =object.velocity.mul(dt.seconds());
+		for (PhysicsObject object : objects) {
+			Vector ResultantForce = new Vector();
+
+			//gravity
+			float yGravity = object.mass*9.81f;
+			Vector Gravity = new Vector(0f,-yGravity);
+
+			//total force
+			ResultantForce.add(Gravity);
 
 
+			//acceleratoin
+			object.acceleration = Vector.div(ResultantForce, object.mass);
 
+			//velocity
+			object.velocity = Vector.add(object.velocity, Vector.mul(object.acceleration, dt.seconds()));
+
+			//position
+			object.position = Vector.add(object.position, Vector.mul(object.velocity, dt.seconds()));
+
+			ResultantForce = null;
 		}
 	}
 

@@ -12,7 +12,9 @@ public class MainScene extends Scene {
 	@Override
 	public void load() {
 		test = new PhysicsObject(0.1f);
+		test2 = new PhysicsObject(0.2f);
 		engine.addObject(test);
+		engine.addObject(test2);
 	}
 
 	@Override
@@ -39,4 +41,6 @@ public class MainScene extends Scene {
 	}
 
 	private PhysicsObject test;
+	private PhysicsObject test2;
+
 }
