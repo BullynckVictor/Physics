@@ -8,18 +8,22 @@ public class MainScene extends Scene {
 	MainScene(Renderer renderer) {
 		super(renderer);
 		gravity = new GravityCalculator();
+		universalGravity = new UniversalGravityCalculator(0.5f);
 	}
 
 	@Override
 	public void load() {
-		engine.forceCalculator = gravity;
+		engine.forceCalculator = universalGravity;
 
-		test = new PhysicsObject(0.1f);
+		test1 = new PhysicsObject(0.1f);
 		test2 = new PhysicsObject(0.2f);
 
-		engine.addObject(test);
+
+		test1.position.x = -0.75f;
+		test2.position.x =  0.75f;
+
+		engine.addObject(test1);
 		engine.addObject(test2);
-		renderer.camera.zoom = 1.0f / 3f;
 	}
 
 	@Override
@@ -38,21 +42,22 @@ public class MainScene extends Scene {
 	public void render()
 	{
 		renderObject(test2, Color.GREEN);
-		renderObject(test, Color.BLUE);
+		renderObject(test1, Color.BLUE);
 
 		renderer.drawStringUI(
-				"Velocity: " + test.velocity.length() + "m/s",
+				"Velocity: " + test1.velocity.length() + "m/s",
 				-renderer.getRelativeSize().x + .05f, renderer.getRelativeSize().y - 0.05f,
 				Color.BLACK
 		);
 		renderer.drawStringUI(
-				"Depth fallen: " + Math.abs(test.position.y) + "m",
+				"Depth fallen: " + Math.abs(test1.position.y) + "m",
 				-renderer.getRelativeSize().x + .05f, renderer.getRelativeSize().y - 0.05f - 0.085f,
 				Color.BLACK
 		);
 	}
 
-	private PhysicsObject test;
+	private PhysicsObject test1;
 	private PhysicsObject test2;
-	private GravityCalculator gravity;
+	private final GravityCalculator gravity;
+	private final UniversalGravityCalculator universalGravity;
 }
