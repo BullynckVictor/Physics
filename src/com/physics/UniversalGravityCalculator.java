@@ -15,7 +15,7 @@ public class UniversalGravityCalculator implements ResultantForceCalculator {
 	public void calculateResultantForce(PhysicsObject object, List<PhysicsObject> objects, int index) {
 		for(int i=0; i < objects.size(); i++) {
 			if(index != i) {
-				boolean isaacMethod = true;
+				boolean isaacMethod = false;
 				if (isaacMethod)
 				{
 					float rsqrd = (object.position.x - objects.get(i).position.x) * (object.position.x - objects.get(i).position.x) +

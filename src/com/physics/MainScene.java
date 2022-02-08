@@ -21,6 +21,7 @@ public class MainScene extends Scene {
 
 		test1.position.x = -0.75f;
 		test2.position.x =  0.75f;
+		test1.force.y += 0.1f;
 
 		engine.addObject(test1);
 		engine.addObject(test2);
@@ -30,6 +31,7 @@ public class MainScene extends Scene {
 	public void update(DeltaTime dt)
 	{
 		engine.tick(dt);
+		controlCamera(dt.seconds());
 	}
 
 	private void renderObject(PhysicsObject object, Color color)
