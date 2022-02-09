@@ -232,6 +232,21 @@ public class Renderer
 		graphics.setFont(new Font(name, Font.PLAIN, 12));
 	}
 
+	public void drawObject(PhysicsObject object, Color color)
+	{
+		switch (object.collider.getType()) {
+			case CIRCLE -> {
+				Circle circle = (Circle) (object.collider);
+				fillCircle(object.position, circle.radius, color);
+				drawCircle(object.position, circle.radius, Color.BLACK);
+			}
+			case AAB -> {
+				AAB box = (AAB) (object.collider);
+				fillRectangle(object.position, box.width, box.height, color);
+				drawRectangle(object.position, box.width, box.height, Color.BLACK);
+			}
+		}
+	}
 
 	public void setTransform()
 	{

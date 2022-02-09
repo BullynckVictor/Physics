@@ -8,20 +8,19 @@ public class MainScene extends Scene {
 	MainScene(Renderer renderer) {
 		super(renderer);
 		gravity = new GravityCalculator();
-		universalGravity = new UniversalGravityCalculator(0.5f);
+		universalGravity = new UniversalGravityCalculator(1f);
 	}
 
 	@Override
 	public void load() {
 		engine.forceCalculator = universalGravity;
 
-		test1 = new PhysicsObject(0.1f);
-		test2 = new PhysicsObject(0.2f);
-
+		test1 = new PhysicsObject(new Circle(.1f), .1f);
+		test2 = new PhysicsObject(new AAB(.1f), .2f);
 
 		test1.position.x = -0.75f;
 		test2.position.x =  0.75f;
-		test1.force.y += 0.1f;
+		test1.force.y += 0.07f;
 
 		engine.addObject(test1);
 		engine.addObject(test2);
@@ -34,28 +33,11 @@ public class MainScene extends Scene {
 		controlCamera(dt.seconds());
 	}
 
-	private void renderObject(PhysicsObject object, Color color)
-	{
-		renderer.fillCircle(object.position, object.mass, color);
-		renderer.drawCircle(object.position, object.mass, Color.BLACK);
-	}
-
 	@Override
 	public void render()
 	{
-		renderObject(test2, Color.GREEN);
-		renderObject(test1, Color.BLUE);
-
-		renderer.drawStringUI(
-				"Velocity: " + test1.velocity.length() + "m/s",
-				-renderer.getRelativeSize().x + .05f, renderer.getRelativeSize().y - 0.05f,
-				Color.BLACK
-		);
-		renderer.drawStringUI(
-				"Depth fallen: " + Math.abs(test1.position.y) + "m",
-				-renderer.getRelativeSize().x + .05f, renderer.getRelativeSize().y - 0.05f - 0.085f,
-				Color.BLACK
-		);
+		renderer.drawObject(test2, Color.GREEN);
+		renderer.drawObject(test1, Color.BLUE);
 	}
 
 	private PhysicsObject test1;

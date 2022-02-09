@@ -18,7 +18,7 @@ public class Engine
 
 	public void tick(DeltaTime dt)
 	{
-		for (int index = 0; index < objects.size(); index++)
+		for (int index = 0; index < objects.size(); ++index)
 		{
 			PhysicsObject object = objects.get(index);
 
@@ -37,6 +37,10 @@ public class Engine
 			object.force.x = 0;
 			object.force.y = 0;
 		}
+
+		for (int i = 0; i < objects.size(); ++i)
+			for (int j = i + 1; j < objects.size(); ++j)
+				CollisionHandler.resolve(objects.get(i), objects.get(j));
 	}
 
 	public void addObject(PhysicsObject object)
