@@ -10,11 +10,29 @@ public class CollisionHandler {
 		return Vector.distance(objectA.position, objectB.position) <= circleA.radius + circleB.radius;
 	}
 	// diart: Circle x AAB
-	private static boolean collideCircleAAB(PhysicsObject objectA, PhysicsObject objectB)
-	{
-		Circle circle = (Circle)objectA.collider;
-		AAB box = (AAB)objectB.collider;
-		return false;
+	private static boolean collideCircleAAB(PhysicsObject objectA, PhysicsObject objectB) {
+		Circle circle = (Circle) objectA.collider;
+		AAB box = (AAB) objectB.collider;
+		float minx = objectB.position.x - box.width / 2;
+		float maxx = objectB.position.x + box.width / 2;
+		float miny = objectB.position.y - box.height / 2;
+		float maxy = objectB.position.y + box.height / 2;
+
+		Vector closestpointcircle = new Vector(circle.radius);
+		if (closestpointcircle.x < minx) {
+			closestpointcircle.x = minx;
+		} else if (closestpointcircle.x > maxx) {
+			closestpointcircle.x = maxx;
+		}
+		if (closestpointcircle.y < miny) {
+			closestpointcircle.y = miny;
+		} else if (closestpointcircle.y > maxy) {
+			closestpointcircle.y = maxy;
+		}
+
+		Vector circletobox = new Vector(objectA.position).sub(closestpointcircle);
+		return circletobox.length() <= circle.radius;
+
 	}
 	// diart: AAB x AAB
 	private static boolean collideAABAAB(PhysicsObject objectA, PhysicsObject objectB)
