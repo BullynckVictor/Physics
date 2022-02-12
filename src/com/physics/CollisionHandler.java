@@ -2,12 +2,17 @@ package com.physics;
 
 public class CollisionHandler {
 
+	private static Object Vector;
+
 	// diart: Circle x Circle
 	private static boolean collideCircleCircle(PhysicsObject objectA, PhysicsObject objectB)
 	{
 		Circle circleA = (Circle)objectA.collider;
 		Circle circleB = (Circle)objectB.collider;
-		return false;
+		Vector vecbetweencircles = new Vector(objectA.position).sub(objectB.position);
+		float sumradii = (circleA.radius) + (circleB.radius);
+
+		return vecbetweencircles.length() <= sumradii;
 	}
 	// diart: Circle x AAB
 	private static boolean collideCircleAAB(PhysicsObject objectA, PhysicsObject objectB)

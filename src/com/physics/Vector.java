@@ -62,9 +62,10 @@ public class Vector {
 	public void add(Vector v) {
 		add(v.x, v.y);
 	}
-	public void sub(Vector v) {
+	public Vector sub(Vector v) {
 		sub(v.x, v.y);
-	}
+        return v;
+    }
 	public void mul(Vector v) {
 		mul(v.x, v.y);
 	}
