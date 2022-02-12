@@ -166,7 +166,21 @@ public class Vector {
 		return vec;
 	}
 
+	float distanceSQ(Vector other)
+	{
+		return (x - other.x) * (x - other.x) + (y - other.y) * (y - other.y);
+	}
+	float distance(Vector other)
+	{
+		return (float)Math.sqrt(distanceSQ(other));
+	}
 
-
-
+	static float distanceSQ(Vector a, Vector b)
+	{
+		return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+	}
+	static float distance(Vector a, Vector b)
+	{
+		return (float)Math.sqrt(distanceSQ(a, b));
+	}
 }
