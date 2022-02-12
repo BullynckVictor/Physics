@@ -13,7 +13,7 @@ public class MainScene extends Scene {
 
 	@Override
 	public void load() {
-		engine.forceCalculator = universalGravity;
+//		engine.forceCalculator = universalGravity;
 
 		circle1 = new PhysicsObject(new Circle(.1f), .1f);
 		circle2 = new PhysicsObject(new Circle(.2f), .2f);
@@ -28,6 +28,19 @@ public class MainScene extends Scene {
 		box1.position.y = ((float)Math.random() * 2) - 1;
 		box2.position.x = ((float)Math.random() * 2) - 1;
 		box2.position.y = ((float)Math.random() * 2) - 1;
+
+		circle1.velocity.sub(circle1.position);
+		circle2.velocity.sub(circle2.position);
+		box1.velocity.sub(box1.position);
+		box2.velocity.sub(box2.position);
+		circle1.velocity.normalise();
+		circle2.velocity.normalise();
+		box1.velocity.normalise();
+		box2.velocity.normalise();
+		circle1.velocity.div(3);
+		circle2.velocity.div(3);
+		box1.velocity.div(3);
+		box2.velocity.div(3);
 
 		engine.addObject(circle1);
 		engine.addObject(circle2);
