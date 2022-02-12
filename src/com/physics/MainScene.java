@@ -15,15 +15,24 @@ public class MainScene extends Scene {
 	public void load() {
 		engine.forceCalculator = universalGravity;
 
-		test1 = new PhysicsObject(new Circle(.1f), .1f);
-		test2 = new PhysicsObject(new AAB(.1f), .2f);
+		circle1 = new PhysicsObject(new Circle(.1f), .1f);
+		circle2 = new PhysicsObject(new Circle(.2f), .2f);
+		box1 = new PhysicsObject(new AAB(.1f, 0.3f), .3f);
+		box2 = new PhysicsObject(new AAB(.25f), .25f);
 
-		test1.position.x = -0.75f;
-		test2.position.x =  0.75f;
-		test1.force.y += 0.07f;
+		circle1.position.x = ((float)Math.random() * 2) - 1;
+		circle1.position.y = ((float)Math.random() * 2) - 1;
+		circle2.position.x = ((float)Math.random() * 2) - 1;
+		circle2.position.y = ((float)Math.random() * 2) - 1;
+		box1.position.x = ((float)Math.random() * 2) - 1;
+		box1.position.y = ((float)Math.random() * 2) - 1;
+		box2.position.x = ((float)Math.random() * 2) - 1;
+		box2.position.y = ((float)Math.random() * 2) - 1;
 
-		engine.addObject(test1);
-		engine.addObject(test2);
+		engine.addObject(circle1);
+		engine.addObject(circle2);
+		engine.addObject(box1);
+		engine.addObject(box2);
 	}
 
 	@Override
@@ -36,12 +45,16 @@ public class MainScene extends Scene {
 	@Override
 	public void render()
 	{
-		renderer.drawObject(test2, Color.GREEN);
-		renderer.drawObject(test1, Color.BLUE);
+		renderer.drawObject(circle1, Color.GREEN);
+		renderer.drawObject(circle2, Color.RED);
+		renderer.drawObject(box1, Color.BLUE);
+		renderer.drawObject(box2, Color.YELLOW);
 	}
 
-	private PhysicsObject test1;
-	private PhysicsObject test2;
+	private PhysicsObject circle1;
+	private PhysicsObject circle2;
+	private PhysicsObject box1;
+	private PhysicsObject box2;
 	private final GravityCalculator gravity;
 	private final UniversalGravityCalculator universalGravity;
 }

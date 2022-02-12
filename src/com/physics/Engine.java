@@ -40,7 +40,9 @@ public class Engine
 
 		for (int i = 0; i < objects.size(); ++i)
 			for (int j = i + 1; j < objects.size(); ++j)
-				CollisionHandler.resolve(objects.get(i), objects.get(j));
+//				CollisionHandler.resolve(objects.get(i), objects.get(j));
+				if (CollisionHandler.collide(objects.get(i), objects.get(j)))
+					System.out.println("Collision: " + objects.get(i).collider.getType().toString() + " x " + objects.get(j).collider.getType().toString());
 	}
 
 	public void addObject(PhysicsObject object)
