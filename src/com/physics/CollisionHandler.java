@@ -34,11 +34,20 @@ public class CollisionHandler {
 		return Vector.distance(objectA.position, closestPointCircle) <= circle.radius;
 	}
 
-	private static boolean collideAABAAB(PhysicsObject objectA, PhysicsObject objectB)
-	{
+	private static boolean collideAABAAB(PhysicsObject objectA, PhysicsObject objectB) {
 		AAB boxA = (AAB) objectA.collider;
-		AAB boxB = (AAB)objectB.collider;
-		return false;
+		AAB boxB = (AAB) objectB.collider;
+		float minxA = objectA.position.x - boxA.width / 2;
+		float maxxA = objectA.position.x + boxA.width / 2;
+		float minyA = objectA.position.y - boxA.height / 2;
+		float maxyA = objectA.position.y + boxA.height / 2;
+
+		float minxB = objectB.position.x - boxB.width / 2;
+		float maxxB = objectB.position.x + boxB.width / 2;
+		float minyB = objectB.position.y - boxB.height / 2;
+		float maxyB = objectB.position.y + boxB.height / 2;
+
+		return minxA < maxxB && minxB <= maxxA && minyA <= maxyB && minyB < maxyA;
 	}
 
 	public static boolean collide(PhysicsObject a, PhysicsObject b)
