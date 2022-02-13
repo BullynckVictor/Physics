@@ -40,7 +40,13 @@ public class Engine
 
 		for (int i = 0; i < objects.size(); ++i)
 			for (int j = i + 1; j < objects.size(); ++j)
-				CollisionHandler.resolve(objects.get(i), objects.get(j));
+				if (CollisionHandler.collide(objects.get(i), objects.get(j))) {
+					CollisionHandler.resolve(objects.get(i), objects.get(j));
+					Debug.drawVector(CollisionHandler.normal(objects.get(i), objects.get(j)), new Vector(-0.75f, -0.75f));
+					System.out.println(CollisionHandler.normal(objects.get(i), objects.get(j)).x);
+					System.out.println(CollisionHandler.normal(objects.get(i), objects.get(j)).y);
+				}
+
 	}
 
 	public void addObject(PhysicsObject object)
