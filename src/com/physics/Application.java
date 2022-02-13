@@ -41,8 +41,8 @@ public class Application
 
 	private void tick()
 	{
-		update(new DeltaTime(timer.mark()));
 		renderer.clear();
+		update(new DeltaTime(timer.mark()));
 		render();
 		renderer.present();
 	}

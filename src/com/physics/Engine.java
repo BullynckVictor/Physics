@@ -38,15 +38,19 @@ public class Engine
 			object.force.y = 0;
 		}
 
-		for (int i = 0; i < objects.size(); ++i)
-			for (int j = i + 1; j < objects.size(); ++j)
-				if (CollisionHandler.collide(objects.get(i), objects.get(j))) {
-					CollisionHandler.resolve(objects.get(i), objects.get(j));
-					Debug.drawVector(CollisionHandler.normal(objects.get(i), objects.get(j)), new Vector(-0.75f, -0.75f));
-					System.out.println(CollisionHandler.normal(objects.get(i), objects.get(j)).x);
-					System.out.println(CollisionHandler.normal(objects.get(i), objects.get(j)).y);
-				}
+		for (int i = 0; i < objects.size(); ++i) {
+			PhysicsObject objectA = objects.get(i);
+			for (int j = i + 1; j < objects.size(); ++j) {
+				PhysicsObject objectB = objects.get(j);
 
+				if (CollisionHandler.collide(objectA, objectB)) {
+					CollisionHandler.resolve(objectA, objectB);
+					Vector normal = CollisionHandler.normal(objectA, objectB);
+					Debug.drawVector(normal, new Vector(-0.75f, -0.75f));
+					System.out.println(normal);
+				}
+			}
+		}
 	}
 
 	public void addObject(PhysicsObject object)

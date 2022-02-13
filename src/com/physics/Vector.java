@@ -185,6 +185,10 @@ public class Vector {
 
 	static Vector ZERO = new Vector(0);
 	static Vector ONE = new Vector(1);
+	static Vector LEFT = new Vector(-1, 0);
+	static Vector UP = new Vector(0, 1);
+	static Vector RIGHT = new Vector(1, 0);
+	static Vector DOWN = new Vector(0, -1);
 
 	static Vector random() {
 		return new Vector(((float)Math.random() * 2f) - 1f, ((float)(Math.random()) * 2f) - 1f);
@@ -193,5 +197,11 @@ public class Vector {
 		Vector vector = random();
 		vector.normalise();
 		return vector;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "(" + x + ", " + y + ")";
 	}
 }
