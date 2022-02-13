@@ -1,7 +1,7 @@
 package com.physics;
 
 public class CollisionHandler {
-
+//
 	// diart: Circle x Circle
 	private static boolean collideCircleCircle(PhysicsObject objectA, PhysicsObject objectB)
 	{
@@ -18,7 +18,7 @@ public class CollisionHandler {
 		float miny = objectB.position.y - box.height / 2;
 		float maxy = objectB.position.y + box.height / 2;
 
-		Vector closestpointcircle = new Vector(circle.radius);
+		Vector closestpointcircle = new Vector(objectA.position);
 		if (closestpointcircle.x < minx) {
 			closestpointcircle.x = minx;
 		} else if (closestpointcircle.x > maxx) {
