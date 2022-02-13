@@ -62,6 +62,7 @@ public class MainScene extends Scene {
 	@Override
 	public void unload()
 	{
+		super.unload();
 		colors.clear();
 		objects.clear();
 	}
