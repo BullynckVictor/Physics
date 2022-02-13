@@ -182,4 +182,16 @@ public class Vector {
 	{
 		return (float)Math.sqrt(distanceSQ(a, b));
 	}
+
+	static Vector ZERO = new Vector(0);
+	static Vector ONE = new Vector(1);
+
+	static Vector random() {
+		return new Vector(((float)Math.random() * 2f) - 1f, ((float)(Math.random()) * 2f) - 1f);
+	}
+	static Vector randomNorm() {
+		Vector vector = random();
+		vector.normalise();
+		return vector;
+	}
 }
