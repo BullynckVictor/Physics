@@ -12,6 +12,8 @@ public class MainScene extends Scene {
 		universalGravity = new UniversalGravityCalculator(1f);
 		objects = new ArrayList<>();
 		colors = new ArrayList<>();
+		Debug.setRenderer(renderer);
+		Debug.setColor(Color.GREEN);
 	}
 
 	@Override
@@ -78,13 +80,18 @@ public class MainScene extends Scene {
 	public void render()
 	{
 		for (int i = 0; i < objects.size(); ++i) {
+			PhysicsObject object = objects.get(i);
 			boolean collides = false;
 			for (int j = 0; j < objects.size() && !collides; ++j)
 				if (i != j)
-					if (CollisionHandler.collide(objects.get(i), objects.get(j)))
+					if (CollisionHandler.collide(object, objects.get(j)))
 						collides = true;
-			renderer.drawObject(objects.get(i), collides ? Color.WHITE : colors.get(i));
+			renderer.drawObject(object, collides ? Color.WHITE : colors.get(i));
+			Debug.drawVector(object.velocity, object.position);
 		}
+		if (Debug.enabled())
+			for (PhysicsObject object : objects)
+				Debug.drawVector(object.velocity, object.position);
 	}
 
 	private final GravityCalculator gravity;
