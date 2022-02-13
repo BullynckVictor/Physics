@@ -48,6 +48,15 @@ public class Debug {
 
 		Vector point = Vector.add(origin, vector);
 		renderer.drawLine(origin, point, color);
+
+		double range = 0.4f;
+		double r = 0.05f;
+		double theta = Math.atan(vector.y / vector.x);
+		if (vector.x >= 0)
+			theta += Math.PI;
+
+		renderer.drawLine(point, (float)(point.x + Math.cos(theta + range) * r), (float)(point.y + Math.sin(theta + range) * r), color);
+		renderer.drawLine(point, (float)(point.x + Math.cos(theta - range) * r), (float)(point.y + Math.sin(theta - range) * r), color);
 	}
 
 	public static Renderer renderer;

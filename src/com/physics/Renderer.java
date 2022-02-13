@@ -188,6 +188,14 @@ public class Renderer
 	{
 		drawLine(p1.x, p1.y, p2.x, p2.y, color, transform);
 	}
+	public void drawLine(Vector p1, float x2, float y2, Color color)
+	{
+		drawLine(p1.x, p1.y, x2, y2, color);
+	}
+	public void drawLine(Vector p1, float x2, float y2, Color color, Transform transform)
+	{
+		drawLine(p1.x, p1.y, x2, y2, color, transform);
+	}
 	public void drawLine(Vector p1, Vector p2,  Color color)
 	{
 		drawLine(p1.x, p1.y, p2.x, p2.y, color);
