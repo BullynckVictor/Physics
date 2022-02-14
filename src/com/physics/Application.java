@@ -52,11 +52,10 @@ public class Application
 		renderer.dispose();
 	}
 
-	protected void addScene(String name, Scene scene) throws Exception {
+	protected void addScene(String name, Scene scene) {
 		scenes.put(name, scene);
 		if (scene.renderer == null)
 			scene.setRenderer(renderer);
-		setActiveScene(scene);
 	}
 	protected void setActiveScene(String name) throws Exception
 	{

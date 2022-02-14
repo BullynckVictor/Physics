@@ -10,7 +10,7 @@ public class Timer
 		reset();
 	}
 
-	void reset()
+	public void reset()
 	{
 		lastTime = now();
 	}

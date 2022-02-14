@@ -19,8 +19,7 @@ public class MainApp extends Application
 		addScene("Diart Development Scene", new DiartScene(renderer));
 		addScene("Victor Development Scene", new VictorScene(renderer));
 
-		OptionsReader options;
-		options = new OptionsReader("Developer.txt");
+		OptionsReader options = new OptionsReader("Developer.txt");
 		options.addDefault("starting scene", "Main Development Scene");
 
 		setActiveScene(options.getValue("starting scene"));

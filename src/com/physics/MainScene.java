@@ -1,25 +1,36 @@
 package com.physics;
 
 import com.physics.util.DeltaTime;
+import com.physics.util.OptionsReader;
+import com.physics.util.Timer;
 
 import java.awt.*;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 
 public class MainScene extends Scene {
 	MainScene(Renderer renderer) {
 		super(renderer);
-		gravity = new GravityCalculator();
-		universalGravity = new UniversalGravityCalculator(1f);
 		objects = new ArrayList<>();
 		colors = new ArrayList<>();
 		Debug.setRenderer(renderer);
 		Debug.setColor(Color.GREEN);
+		timer = new Timer();
+		fps = 0;
+		frames = 0;
+
+		OptionsReader options = new OptionsReader("Developer.txt");
+		options.addDefault("engine update delta", "16");
+		try {
+			engine.dt.set(Integer.parseInt(options.getValue("engine update delta")), ChronoUnit.MILLIS);
+		} catch (NumberFormatException e) {
+			engine.dt.set(16, ChronoUnit.MILLIS);
+		}
 	}
 
 	@Override
 	public void load() {
-//		engine.forceCalculator = universalGravity;
-
 		objects.add(new PhysicsObject(new Circle(.1f), .1f));
 		objects.add(new PhysicsObject(new Circle(.2f), .2f));
 		objects.add(new PhysicsObject(new AAB(.1f, 0.3f), .3f));
@@ -37,6 +48,9 @@ public class MainScene extends Scene {
 			object.velocity.div(3);
 			engine.addObject(object);
 		}
+
+		timer.reset();
+		frames = 0;
 	}
 	@Override
 	public void unload()
@@ -49,8 +63,17 @@ public class MainScene extends Scene {
 	@Override
 	public void update(DeltaTime dt)
 	{
-		engine.tick(dt);
+		engine.compute(dt);
 		controlCamera(dt.seconds());
+
+		++frames;
+		int seconds = (int)timer.peek().toSeconds();
+		if (seconds > 0)
+		{
+			fps = frames / seconds;
+			frames = 0;
+			timer.reset();
+		}
 	}
 
 	@Override
@@ -69,10 +92,14 @@ public class MainScene extends Scene {
 		if (Debug.enabled())
 			for (PhysicsObject object : objects)
 				Debug.drawVector(object.velocity, object.position);
+
+		Vector relative = renderer.getRelativeSize();
+		renderer.drawStringUI("FPS: " + fps, -relative.x + 0.05f, relative.y - 0.05f, Color.BLACK);
 	}
 
-	private final GravityCalculator gravity;
-	private final UniversalGravityCalculator universalGravity;
 	private final ArrayList<PhysicsObject> objects;
 	private final ArrayList<Color> colors;
+	private final Timer timer;
+	private int fps;
+	private int frames;
 }

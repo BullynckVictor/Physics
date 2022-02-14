@@ -1,7 +1,9 @@
 package com.physics;
 
 import com.physics.util.DeltaTime;
+import com.physics.util.Timer;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Engine
@@ -9,6 +11,8 @@ public class Engine
 	public Engine()
 	{
 		objects = new ArrayList<>();
+		dt = new DeltaTime(16, ChronoUnit.MILLIS);
+		delta = new DeltaTime();
 	}
 	public Engine(ResultantForceCalculator calculator)
 	{
@@ -16,7 +20,17 @@ public class Engine
 		forceCalculator = calculator;
 	}
 
-	public void tick(DeltaTime dt)
+	public void compute(DeltaTime dt)
+	{
+		delta.add(dt);
+		int n = (int)(delta.seconds() / this.dt.seconds());
+		for (int i = 0; i < n; ++i) {
+			tick();
+			delta.sub(this.dt);
+		}
+	}
+
+	public void tick()
 	{
 		for (int index = 0; index < objects.size(); ++index)
 		{
@@ -66,6 +80,8 @@ public class Engine
 		objects.clear();
 	}
 
+	public DeltaTime dt;
+	private DeltaTime delta;
 
 	private final ArrayList<PhysicsObject> objects;
 	ResultantForceCalculator forceCalculator;

@@ -57,5 +57,14 @@ public class DeltaTime {
 		return nanosLong();
 	}
 
+	public void add(DeltaTime other)
+	{
+		duration = duration.plus(other.duration);
+	}
+	public void sub(DeltaTime other)
+	{
+		duration = duration.minus(other.duration);
+	}
+
 	private Duration duration;
 }

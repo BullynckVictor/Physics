@@ -21,7 +21,7 @@ public class VictorScene extends Scene {
 	@Override
 	public void update(DeltaTime dt)
 	{
-		engine.tick(dt);
+		engine.compute(dt);
 	}
 
 	@Override
