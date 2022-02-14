@@ -36,8 +36,11 @@ public class Engine
 		{
 			PhysicsObject object = objects.get(index);
 
-			if (forceCalculator != null)
+			if (forceCalculator != null) {
 				forceCalculator.calculateResultantForce(object, objects, index);
+				//System.out.println(true);
+			}
+			System.out.println(object.force);
 
 			//acceleration
 			object.acceleration = Vector.div(object.force, object.mass);
@@ -50,6 +53,7 @@ public class Engine
 
 			object.force.x = 0;
 			object.force.y = 0;
+
 		}
 
 		for (int i = 0; i < objects.size(); ++i) {
@@ -57,11 +61,22 @@ public class Engine
 			for (int j = i + 1; j < objects.size(); ++j) {
 				PhysicsObject objectB = objects.get(j);
 
+				Debug.drawVector(Vector.sub(objectB.position, objectA.position), objectA.position);
+
 				if (CollisionHandler.collide(objectA, objectB)) {
 					CollisionHandler.resolve(objectA, objectB);
-					Vector normal = CollisionHandler.normal(objectA, objectB);
-					Debug.drawVector(normal, new Vector(-0.75f, -0.75f));
-					System.out.println(normal);
+					Vector normal1 = CollisionHandler.normal(objectA, objectB);
+					Vector normal2 = Vector.mul(normal1, -1);
+					Vector r1 = Vector.sub(objectA.velocity, Vector.mul(normal1, 2*objectA.velocity.dot(normal1)));
+					Vector r2 = Vector.sub(objectB.velocity, Vector.mul(normal2, 2*objectB.velocity.dot(normal2)));
+					r1.normalise();
+					r2.normalise();
+
+					float v1 = (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass) * objectA.velocity.length() + (2* objectB.mass) / (objectA.mass + objectB.mass) * objectB.velocity.length();
+					float v2 = (2*objectA.mass) / (objectA.mass + objectB.mass) * objectA.velocity.length() - (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass) * objectB.velocity.length();
+
+					objectA.velocity = Vector.mul(r1, v1);
+					objectB.velocity = Vector.mul(r2, v2);
 				}
 			}
 		}

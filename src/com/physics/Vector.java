@@ -57,6 +57,10 @@ public class Vector {
 		this.x /= value;
 		this.y /= value;
 	}
+	public void equals(Vector other) {
+		x = other.x;
+		y = other.y;
+	}
 
 	// basis bewerkingen met vectoren
 	public void add(Vector v) {

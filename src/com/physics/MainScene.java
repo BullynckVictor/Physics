@@ -31,21 +31,25 @@ public class MainScene extends Scene {
 
 	@Override
 	public void load() {
-		objects.add(new PhysicsObject(new Circle(.1f), .1f));
+		objects.add(new PhysicsObject(new Circle(.1f), .2f));
 		objects.add(new PhysicsObject(new Circle(.2f), .2f));
-		objects.add(new PhysicsObject(new AAB(.1f, 0.3f), .3f));
-		objects.add(new PhysicsObject(new AAB(.25f), .25f));
+		objects.add(new PhysicsObject(new Circle(.1f), .2f));
+		objects.add(new PhysicsObject(new Circle(.3f), .2f));
+		//objects.add(new PhysicsObject(new AAB(.1f, 0.3f), .2f));
+		//objects.add(new PhysicsObject(new AAB(.25f), .25f));
 		colors.add(Color.GREEN);
 		colors.add(Color.BLUE);
 		colors.add(Color.YELLOW);
 		colors.add(Color.RED);
 
+		engine.forceCalculator = new UniversalGravityCalculator();
+
 		for (PhysicsObject object : objects)
 		{
 			object.position = Vector.random();
-			object.velocity.sub(object.position);
-			object.velocity.normalise();
-			object.velocity.div(3);
+			//object.velocity.sub(object.position);
+			//object.velocity.normalise();
+			//object.velocity.div(3);
 			engine.addObject(object);
 		}
 

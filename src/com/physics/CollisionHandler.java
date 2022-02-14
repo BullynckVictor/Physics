@@ -110,19 +110,30 @@ public class CollisionHandler {
 		AAB box = (AAB)objectB.collider;
 
 		Vector from = Vector.sub(objectB.position, objectA.position);
-		Vector vfrom = Vector.sub(objectB.velocity, objectA.velocity);;
-		float m = from.y/from.x;
-		float rbox;
+		Vector vfrom = Vector.sub(objectB.velocity, objectA.velocity);
 
-		if(Math.abs(m)> box.height/box.width || from.x == 0) {		// cirkel boven/onder
-			rbox = (float) Math.sqrt((1+1/(m*m)))*box.height/2;
-		} else {		// cirkel links/rechts
-			rbox = (float) Math.sqrt((1+m*m))*box.width/2;
-		}
+		float minx = objectB.position.x - box.width / 2;
+		float maxx = objectB.position.x + box.width / 2;
+		float miny = objectB.position.y - box.height / 2;
+		float maxy = objectB.position.y + box.height / 2;
+
+		Vector closestPointCircle = new Vector(objectA.position);
+
+		if (closestPointCircle.x < minx)
+			closestPointCircle.x = minx;
+
+		else if (closestPointCircle.x > maxx)
+			closestPointCircle.x = maxx;
+
+		if (closestPointCircle.y < miny)
+			closestPointCircle.y = miny;
+
+		else if (closestPointCircle.y > maxy)
+			closestPointCircle.y = maxy;
+
+		float rbox = Vector.sub(objectB.position, closestPointCircle).length();
 
 		float dt = (-from.length() + (circle.radius + rbox))/ vfrom.length();
-
-		// if(edgecase) { groot probleem }
 
 		objectA.position = Vector.sub(objectA.position, Vector.mul(objectA.velocity, dt));
 		objectB.position = Vector.sub(objectB.position, Vector.mul(objectB.velocity, dt));
@@ -138,14 +149,20 @@ public class CollisionHandler {
 		float d;
 		float dt;
 
+		/*if(from.y - boxA.height/2 - boxB.height/2 < from.x - boxA.width/2 - boxB.width/2) {
+			d = boxA.height/2 + boxB.height/2;
+		} else {
+			d = boxA.width/2 + boxB.width/2;
+		}*/
+
+
+
 		if(Math.abs(m)> boxA.height/boxA.width || from.x == 0) {		// cirkel boven/onder
 			d = boxA.height/2 + boxB.height/2;
-			dt = (-from.y + d)/vfrom.y;
 		} else {		// cirkel links/rechts
 			d = boxA.width/2 + boxB.width/2;
-			dt = (-from.x + d)/vfrom.x;
 		}
-
+			dt = (-from.length() + d) / vfrom.length();
 		objectA.position = Vector.sub(objectA.position, Vector.mul(objectA.velocity, dt));
 		objectB.position = Vector.sub(objectB.position, Vector.mul(objectB.velocity, dt));
 	}
@@ -159,13 +176,8 @@ public class CollisionHandler {
 			case CIRCLE:
 				switch (objectB.collider.getType()) {
 					case CIRCLE -> {
-						if(m==0) {
-							normal.add(0,1);
-						} else {
-							float n = -1 / m;
-							normal.add(n, 1);
-							normal.normalise();
-						}
+						from.normalise();
+						normal.equals(from);
 					}
 					case AAB -> {
 						AAB box = (AAB) objectB.collider;
