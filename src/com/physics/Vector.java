@@ -22,6 +22,18 @@ public class Vector {
 		y = 0;
 	}
 
+	public void set(float value)
+	{
+		x = value;
+		y = value;
+	}
+
+	public void set(float x, float y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+
 	// bewerkingen met vaste waarde
 	public void add(float x, float y) {
 		this.x += x;
@@ -187,12 +199,12 @@ public class Vector {
 		return (float)Math.sqrt(distanceSQ(a, b));
 	}
 
-	static Vector ZERO = new Vector(0);
-	static Vector ONE = new Vector(1);
-	static Vector LEFT = new Vector(-1, 0);
-	static Vector UP = new Vector(0, 1);
-	static Vector RIGHT = new Vector(1, 0);
-	static Vector DOWN = new Vector(0, -1);
+	static final Vector ZERO = new Vector(0);
+	static final Vector ONE = new Vector(1);
+	static final Vector LEFT = new Vector(-1, 0);
+	static final Vector UP = new Vector(0, 1);
+	static final Vector RIGHT = new Vector(1, 0);
+	static final Vector DOWN = new Vector(0, -1);
 
 	static Vector random() {
 		return new Vector(((float)Math.random() * 2f) - 1f, ((float)(Math.random()) * 2f) - 1f);

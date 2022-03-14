@@ -27,4 +27,5 @@ public class PhysicsObject
 	public Vector acceleration;
 	public Vector force;
 	public Collider collider;
+	public boolean movable = true;
 }

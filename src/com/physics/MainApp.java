@@ -14,15 +14,16 @@ public class MainApp extends Application
 	public MainApp() throws Exception {
 		super("Hello world", 600, 400, resizeable());
 
-		addScene("Main Development Scene", new MainScene(renderer));
-		addScene("Isaac Development Scene", new IsaacScene(renderer));
-		addScene("Diart Development Scene", new DiartScene(renderer));
-		addScene("Victor Development Scene", new VictorScene(renderer));
+		sceneHandler.addScene("Main Development Scene", new MainScene(renderer, sceneHandler));
+//		sceneHandler.addScene("Isaac Development Scene", new IsaacScene(renderer, sceneHandler));
+//		sceneHandler.addScene("Diart Development Scene", new DiartScene(renderer, sceneHandler));
+//		sceneHandler.addScene("Victor Development Scene", new VictorScene(renderer, sceneHandler));
+		sceneHandler.addScene("Earth Demo Scene", new EarthScene(renderer, sceneHandler));
 
 		OptionsReader options = new OptionsReader("Developer.txt");
 		options.addDefault("starting scene", "Main Development Scene");
 
-		setActiveScene(options.getValue("starting scene"));
+		sceneHandler.setActiveScene(options.getValue("starting scene"));
 	}
 
 	static boolean resizeable()
@@ -35,15 +36,15 @@ public class MainApp extends Application
 	}
 
 	@Override
-	protected void update(DeltaTime dt)
+	protected void update(DeltaTime dt) throws Exception
 	{
-		getActiveScene().input.handleInput();
-		getActiveScene().update(dt);
+		sceneHandler.getActiveScene().input.handleInput();
+		sceneHandler.getActiveScene().update(dt);
 	}
 
 	@Override
 	public void render()
 	{
-		getActiveScene().render();
+		sceneHandler.getActiveScene().render();
 	}
 }

@@ -11,6 +11,7 @@ public class Keyboard implements KeyListener
 		pressedKeys = new boolean[256];
 		pressedKeyMap = new TreeMap<>();
 		input = new StringBuffer();
+		flaggedKeys = new TreeMap<>();
 	}
 
 	@Override
@@ -21,6 +22,7 @@ public class Keyboard implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 		setPressedKey(e.getKeyCode(), true);
+		flaggedKeys.put(e.getKeyCode(), flaggedKeys.getOrDefault(e.getKeyCode(), 0) + 1);
 	}
 
 	@Override
@@ -63,6 +65,13 @@ public class Keyboard implements KeyListener
 		return getPressedKey(key);
 	}
 
+	public int keyFlagged(int key)
+	{
+		int flagged = flaggedKeys.getOrDefault(key, 0);
+		flaggedKeys.put(key, 0);
+		return flagged;
+	}
+
 	private void setPressedKey(int key, boolean value)
 	{
 		if (key < 256)
@@ -80,7 +89,15 @@ public class Keyboard implements KeyListener
 		return false;
 	}
 
+	public void clear()
+	{
+		pressedKeyMap.clear();
+		input.setLength(0);
+		flaggedKeys.clear();
+	}
+
 	private final boolean[] pressedKeys;
 	private final TreeMap<Integer, Boolean> pressedKeyMap;
 	private final StringBuffer input;
+	private final TreeMap<Integer, Integer> flaggedKeys;
 }

@@ -8,9 +8,9 @@ import java.awt.event.KeyEvent;
 
 public class VictorScene extends Scene {
 
-	public VictorScene(Renderer renderer)
+	public VictorScene(Renderer renderer, SceneHandler sceneHandler)
 	{
-		super(renderer);
+		super(renderer, sceneHandler);
 	}
 
 	@Override
@@ -19,9 +19,10 @@ public class VictorScene extends Scene {
 	}
 
 	@Override
-	public void update(DeltaTime dt)
+	public void update(DeltaTime dt) throws Exception
 	{
 		engine.compute(dt);
+		updateScene();
 	}
 
 	@Override

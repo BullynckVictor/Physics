@@ -2,6 +2,7 @@ package com.physics.isaac;
 
 import com.physics.Renderer;
 import com.physics.Scene;
+import com.physics.SceneHandler;
 import com.physics.Transform;
 import com.physics.util.DeltaTime;
 
@@ -74,8 +75,8 @@ public class IsaacScene extends Scene {
 
 
 
-	public IsaacScene(Renderer renderer) {
-		super(renderer);
+	public IsaacScene(Renderer renderer, SceneHandler sceneHandler) {
+		super(renderer, sceneHandler);
 
 	}
 
@@ -93,7 +94,7 @@ public class IsaacScene extends Scene {
 	}
 
 	@Override
-	public void update(DeltaTime dt) {
+	public void update(DeltaTime dt) throws Exception {
 		piece.Lower(field);
 
 		if (input.keyboard.keyPressed(KeyEvent.VK_LEFT)) {
@@ -130,6 +131,7 @@ public class IsaacScene extends Scene {
             }
         }
 
+		updateScene();
 	}
 
 

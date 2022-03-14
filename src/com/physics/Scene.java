@@ -1,38 +1,49 @@
 package com.physics;
 
 import com.physics.util.DeltaTime;
+import com.physics.util.OptionsReader;
 
 import java.awt.event.KeyEvent;
+import java.time.temporal.ChronoUnit;
 
 public class Scene {
 	public Scene()
 	{
 		engine = new Engine();
 	}
-	public Scene(Renderer renderer)
+	public Scene(Renderer renderer, SceneHandler sceneHandler)
 	{
 		setRenderer(renderer);
+		this.sceneHandler = sceneHandler;
 		engine = new Engine();
+		OptionsReader options = new OptionsReader("Developer.txt");
+		options.addDefault("engine update delta", "16");
+		try {
+			engine.dt.set(Integer.parseInt(options.getValue("engine update delta")), ChronoUnit.MILLIS);
+		} catch (NumberFormatException e) {
+			engine.dt.set(16, ChronoUnit.MILLIS);
+		}
 	}
 
-	void setRenderer(Renderer renderer)
+	public void setRenderer(Renderer renderer)
 	{
-		this.renderer = renderer;
-		input = new InputManager(renderer);
-		loadActions();
+		if (this.renderer != renderer) {
+			this.renderer = renderer;
+			input = new InputManager(renderer);
+			loadActions();
+		}
 	}
 
-	public void load() throws Exception {
+	public void load() {
+		input.keyboard.clear();
 	}
 	public void unload()
 	{
 		engine.clear();
 	}
 
-	public void update(DeltaTime dt)
-	{
+	public void update(DeltaTime dt) throws Exception {
 	}
-
 	public void render()
 	{
 	}
@@ -56,6 +67,14 @@ public class Scene {
 		renderer.camera.moveRelative(delta);
 	}
 
+	protected void updateScene() throws Exception
+	{
+		if (input.keyboard.keyFlagged(KeyEvent.VK_BACK_SPACE) != 0)
+			sceneHandler.rollbackScene();
+		if (input.keyboard.keyFlagged(KeyEvent.VK_SHIFT) != 0)
+			sceneHandler.advanceScene();
+	}
+
 	private void loadActions()
 	{
 		A_MOVE_LEFT = input.newAction();
@@ -72,6 +91,7 @@ public class Scene {
 	protected Renderer renderer;
 	protected InputManager input;
 	protected final Engine engine;
+	protected SceneHandler sceneHandler;
 	public DeltaTime updateTime = new DeltaTime();
 
 	private int A_MOVE_LEFT;

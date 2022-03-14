@@ -3,11 +3,6 @@ package com.physics;
 import com.physics.util.DeltaTime;
 import com.physics.util.Timer;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.concurrent.*;
-
 
 public class Application
 {
@@ -18,11 +13,10 @@ public class Application
 		keyboard = new Keyboard();
 		mouse = renderer.createMouse();
 		renderer.addKeyboard(keyboard);
-		scenes = new TreeMap<>();
-		service = Executors.newSingleThreadScheduledExecutor();
+		sceneHandler = new SceneHandler(renderer);
 	}
 
-	protected void update(DeltaTime dt) {}
+	protected void update(DeltaTime dt) throws Exception {}
 	public void close()
 	{
 		renderer.close();
@@ -31,7 +25,7 @@ public class Application
 	{
 	}
 
-	public void run()
+	public void run() throws Exception
 	{
 		while (renderer.open()) {
 			tick();
@@ -39,7 +33,7 @@ public class Application
 		renderer.dispose();
 	}
 
-	private void tick()
+	private void tick() throws Exception
 	{
 		renderer.clear();
 		update(new DeltaTime(timer.mark()));
@@ -52,48 +46,11 @@ public class Application
 		renderer.dispose();
 	}
 
-	protected void addScene(String name, Scene scene) {
-		scenes.put(name, scene);
-		if (scene.renderer == null)
-			scene.setRenderer(renderer);
-	}
-	protected void setActiveScene(String name) throws Exception
-	{
-		unloadActiveScene();
-		activeScene = scenes.get(name);
-		if (activeScene == null)
-			throw new IllegalArgumentException("Scene \"" + name + "\" not found in SceneMap");
-		renderer.getWindow().setTitle(name);
-		activeScene.load();
-	}
-	protected void setActiveScene(Scene scene) throws Exception
-	{
-		unloadActiveScene();
-		activeScene = scene;
-		if (!scenes.containsValue(scene))
-			throw new IllegalArgumentException("Scene \"" + scene.toString() + "\" not found in SceneMap");
-		renderer.getWindow().setTitle("Unknown Scene");
-		activeScene.load();
-	}
 
-	protected Scene getActiveScene()
-	{
-		if (activeScene == null)
-			throw new NullPointerException("Active Scene was null, try adding a scene before calling getActiveScene()");
-		return activeScene;
-	}
-
-	protected void unloadActiveScene()
-	{
-		if (activeScene != null)
-			activeScene.unload();
-	}
 
 	private final Timer timer;
-	private final ScheduledExecutorService service;
 	protected Renderer renderer;
 	protected Keyboard keyboard;
 	protected Mouse mouse;
-	private final TreeMap<String, Scene> scenes;
-	private Scene activeScene;
+	protected final SceneHandler sceneHandler;
 }
