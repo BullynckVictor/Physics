@@ -24,8 +24,8 @@ public class EarthScene extends Scene {
 
 		earth.movable = false;
 		float velocity = 1f;
-		float radius = gravity.constant * earth.mass / (velocity * velocity);
 		float theta = (float)(Math.random() * Math.PI * 2);
+		radius = gravity.constant * earth.mass / (velocity * velocity);
 		satellite.position.set(radius * (float)Math.cos(theta), radius * (float)Math.sin(theta));
 		satellite.velocity.set(velocity * (float)Math.cos(theta + Math.PI / 2), velocity * (float)Math.sin(theta + Math.PI / 2));
 
@@ -49,6 +49,7 @@ public class EarthScene extends Scene {
 	@Override
 	public void render()
 	{
+		renderer.drawCircle(0, 0, radius, Debug.color);
 		renderer.drawObject(earth, Color.GREEN);
 		renderer.drawObject(satellite, Color.GRAY);
 
@@ -63,4 +64,5 @@ public class EarthScene extends Scene {
 
 	private PhysicsObject earth;
 	private PhysicsObject satellite;
+	private float radius;
 }
