@@ -9,5 +9,9 @@ public class Collider
 		return type;
 	}
 
+	public float area() {
+		return 0;
+	}
+
 	private final ColliderType type;
 }

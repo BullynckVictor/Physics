@@ -21,6 +21,11 @@ public class AAB extends Collider
 		this.height = height;
 	}
 
+	public float area()
+	{
+		return width * height;
+	}
+
 	public float width;
 	public float height;
 }

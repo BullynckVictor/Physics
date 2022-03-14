@@ -13,5 +13,11 @@ public class Circle extends Collider
 		this.radius = radius;
 	}
 
+	@Override
+	public float area()
+	{
+		return radius * radius * (float)Math.PI;
+	}
+
 	public float radius;
 }

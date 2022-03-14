@@ -8,16 +8,16 @@ public class PhysicsObject
 		velocity = new Vector();
 		acceleration = new Vector();
 		force = new Vector();
-		mass = 0f;
+		mass = collider.area();
 		this.collider = collider;
 	}
-	public PhysicsObject(Collider collider, float mass)
+	public PhysicsObject(Collider collider, float density)
 	{
 		position = new Vector();
 		velocity = new Vector();
 		acceleration = new Vector();
 		force = new Vector();
-		this.mass = mass;
+		this.mass = collider.area() * density;
 		this.collider = collider;
 	}
 

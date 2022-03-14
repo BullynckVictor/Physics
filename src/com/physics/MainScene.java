@@ -31,10 +31,10 @@ public class MainScene extends Scene {
 
 	@Override
 	public void load() {
-		objects.add(new PhysicsObject(new Circle(.1f), .2f));
-		objects.add(new PhysicsObject(new Circle(.2f), .2f));
-		objects.add(new PhysicsObject(new Circle(.1f), .2f));
-		objects.add(new PhysicsObject(new Circle(.3f), .2f));
+		objects.add(new PhysicsObject(new Circle(.1f)));
+		objects.add(new PhysicsObject(new Circle(.2f)));
+		objects.add(new PhysicsObject(new Circle(.1f)));
+		objects.add(new PhysicsObject(new Circle(.3f)));
 		//objects.add(new PhysicsObject(new AAB(.1f, 0.3f), .2f));
 		//objects.add(new PhysicsObject(new AAB(.25f), .25f));
 		colors.add(Color.GREEN);
@@ -85,12 +85,7 @@ public class MainScene extends Scene {
 	{
 		for (int i = 0; i < objects.size(); ++i) {
 			PhysicsObject object = objects.get(i);
-			boolean collides = false;
-			for (int j = 0; j < objects.size() && !collides; ++j)
-				if (i != j)
-					if (CollisionHandler.collide(object, objects.get(j)))
-						collides = true;
-			renderer.drawObject(object, collides ? Color.WHITE : colors.get(i));
+			renderer.drawObject(object, colors.get(i));
 			Debug.drawVector(object.velocity, object.position);
 		}
 		if (Debug.enabled())
