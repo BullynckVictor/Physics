@@ -19,6 +19,7 @@ public class MainApp extends Application
 //		sceneHandler.addScene("Diart Development Scene", new DiartScene(renderer, sceneHandler));
 //		sceneHandler.addScene("Victor Development Scene", new VictorScene(renderer, sceneHandler));
 		sceneHandler.addScene("Earth Demo Scene", new EarthScene(renderer, sceneHandler));
+		sceneHandler.addScene("Walled Demo Scene", new WalledScene(renderer, sceneHandler));
 
 		OptionsReader options = new OptionsReader("Developer.txt");
 		options.addDefault("starting scene", "Main Development Scene");

@@ -73,11 +73,10 @@ public class Engine
 					r1.normalise();
 					r2.normalise();
 
-					float v1 = (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass) * objectA.velocity.length() + (2* objectB.mass) / (objectA.mass + objectB.mass) * objectB.velocity.length();
-					float v2 = (2*objectA.mass) / (objectA.mass + objectB.mass) * objectA.velocity.length() - (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass) * objectB.velocity.length();
-
-					objectA.velocity = Vector.mul(r1, v1);
-					objectB.velocity = Vector.mul(r2, v2);
+					Vector v1 = Vector.add(Vector.mul(objectA.velocity, (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass)),Vector.mul(objectB.velocity, (2* objectB.mass) / (objectA.mass + objectB.mass)));
+					Vector v2 = Vector.sub(Vector.mul(objectA.velocity, (2*objectB.mass) / (objectA.mass + objectB.mass)),Vector.mul(objectB.velocity, (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass)));
+					objectA.velocity = Vector.mul(r1, v1.length());
+					objectB.velocity = Vector.mul(r2, v2.length());
 				}
 			}
 		}
