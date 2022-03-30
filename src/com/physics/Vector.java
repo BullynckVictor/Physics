@@ -2,18 +2,18 @@ package com.physics;
 
 public class Vector {
 
-	public float x;
-	public float y;
+	public double x;
+	public double y;
 
 	public Vector(Vector other) {
 		x = other.x;
 		y = other.y;
 	}
-	public Vector(float x, float y) {
+	public Vector(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
-	public Vector(float value) {
+	public Vector(double value) {
 		x = value;
 		y = value;
 	}
@@ -22,50 +22,55 @@ public class Vector {
 		y = 0;
 	}
 
-	public void set(float value)
+	public void set(double value)
 	{
 		x = value;
 		y = value;
 	}
+	public void set(Vector other)
+	{
+		x = other.x;
+		y = other.y;
+	}
 
-	public void set(float x, float y)
+	public void set(double x, double y)
 	{
 		this.x = x;
 		this.y = y;
 	}
 
 	// bewerkingen met vaste waarde
-	public void add(float x, float y) {
+	public void add(double x, double y) {
 		this.x += x;
 		this.y += y;
 	}
-	public void sub(float x, float y) {
+	public void sub(double x, double y) {
 		this.x -= x;
 		this.y -= y;
 	}
-	public void mul(float x, float y) {
+	public void mul(double x, double y) {
 		this.x *= x;
 		this.y *= y;
 	}
-	public void div(float x, float y) {
+	public void div(double x, double y) {
 		this.x /= x;
 		this.y /= y;
 	}
 
-	public void add(float value) {
+	public void add(double value) {
 		this.x += value;
 		this.y += value;
 	}
-	public void sub(float value) {
+	public void sub(double value) {
 		this.x -= value;
 		this.y -= value;
 	}
-	public void mul(float value) {
+	public void mul(double value) {
 		this.x *= value;
 		this.y *= value;
 
 	}
-	public void div(float value) {
+	public void div(double value) {
 		this.x /= value;
 		this.y /= value;
 	}
@@ -90,50 +95,50 @@ public class Vector {
 
 	// static bewerkingen
 	// bewerkingen met vaste waarde
-	public static Vector add(Vector vector, float x, float y) {
+	public static Vector add(Vector vector, double x, double y) {
 		Vector vec = new Vector(vector);
 		vec.x += x;
 		vec.y += y;
 		return vec;
 	}
-	public static Vector sub(Vector vector, float x, float y) {
+	public static Vector sub(Vector vector, double x, double y) {
 		Vector vec = new Vector(vector);
 		vec.x -= x;
 		vec.y -= y;
 		return vec;
 	}
-	public static Vector mul(Vector vector, float x, float y) {
+	public static Vector mul(Vector vector, double x, double y) {
 		Vector vec = new Vector(vector);
 		vec.x *= x;
 		vec.y *= y;
 		return vec;
 	}
-	public static Vector div(Vector vector, float x, float y) {
+	public static Vector div(Vector vector, double x, double y) {
 		Vector vec = new Vector(vector);
 		vec.x /= x;
 		vec.y /= y;
 		return vec;
 	}
 
-	public static Vector add(Vector vector, float value) {
+	public static Vector add(Vector vector, double value) {
 		Vector vec = new Vector(vector);
 		vec.x += value;
 		vec.y += value;
 		return vec;
 	}
-	public static Vector sub(Vector vector, float value) {
+	public static Vector sub(Vector vector, double value) {
 		Vector vec = new Vector(vector);
 		vec.x -= value;
 		vec.y -= value;
 		return vec;
 	}
-	public static Vector mul(Vector vector, float value) {
+	public static Vector mul(Vector vector, double value) {
 		Vector vec = new Vector(vector);
 		vec.x *= value;
 		vec.y *= value;
 		return vec;
 	}
-	public static Vector div(Vector vector, float value) {
+	public static Vector div(Vector vector, double value) {
 		Vector vec = new Vector(vector);
 		vec.x /= value;
 		vec.y /= value;
@@ -155,21 +160,21 @@ public class Vector {
 	}
 
 	// extra's
-	public float lengthSQ() {
+	public double lengthSQ() {
 		return x * x + y * y;
 	}
 
-	public float length() {
-		return (float) Math.sqrt(lengthSQ());
+	public double length() {
+		return Math.sqrt(lengthSQ());
 	}
 
 	// speciale vector bewerkingen
-	public float dot(Vector v) {
+	public double dot(Vector v) {
 		return x * v.x + y * v.y;
 	}
 
 	public void normalise() {
-		float l = length();
+		double l = length();
 		if (l != 0) {
 			this.x /= l;
 			this.y /= l;
@@ -181,22 +186,22 @@ public class Vector {
 		return vec;
 	}
 
-	float distanceSQ(Vector other)
+	double distanceSQ(Vector other)
 	{
 		return (x - other.x) * (x - other.x) + (y - other.y) * (y - other.y);
 	}
-	float distance(Vector other)
+	double distance(Vector other)
 	{
-		return (float)Math.sqrt(distanceSQ(other));
+		return Math.sqrt(distanceSQ(other));
 	}
 
-	static float distanceSQ(Vector a, Vector b)
+	static double distanceSQ(Vector a, Vector b)
 	{
 		return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 	}
-	static float distance(Vector a, Vector b)
+	static double distance(Vector a, Vector b)
 	{
-		return (float)Math.sqrt(distanceSQ(a, b));
+		return Math.sqrt(distanceSQ(a, b));
 	}
 
 	static final Vector ZERO = new Vector(0);
@@ -207,7 +212,7 @@ public class Vector {
 	static final Vector DOWN = new Vector(0, -1);
 
 	static Vector random() {
-		return new Vector(((float)Math.random() * 2f) - 1f, ((float)(Math.random()) * 2f) - 1f);
+		return new Vector((Math.random() * 2f) - 1f, (Math.random() * 2f) - 1f);
 	}
 	static Vector randomNorm() {
 		Vector vector = random();

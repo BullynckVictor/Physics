@@ -5,8 +5,8 @@ public class CollisionHandler {
 	private static boolean collideCircleCircle(PhysicsObject objectA, PhysicsObject objectB) {
 		Circle circleA = (Circle)objectA.collider;
 		Circle circleB = (Circle)objectB.collider;
-		float distanceSQ = Vector.distanceSQ(objectA.position, objectB.position);
-		float radiusSQ = circleA.radius * circleA.radius  + 2 * circleA.radius * circleB.radius + circleB.radius * circleB.radius;
+		double distanceSQ = Vector.distanceSQ(objectA.position, objectB.position);
+		double radiusSQ = circleA.radius * circleA.radius  + 2 * circleA.radius * circleB.radius + circleB.radius * circleB.radius;
 		return distanceSQ <= radiusSQ;
 	}
 
@@ -14,10 +14,10 @@ public class CollisionHandler {
 		Circle circle = (Circle) objectA.collider;
 		AAB box = (AAB) objectB.collider;
 
-		float minx = objectB.position.x - box.width / 2;
-		float maxx = objectB.position.x + box.width / 2;
-		float miny = objectB.position.y - box.height / 2;
-		float maxy = objectB.position.y + box.height / 2;
+		double minx = objectB.position.x - box.width / 2;
+		double maxx = objectB.position.x + box.width / 2;
+		double miny = objectB.position.y - box.height / 2;
+		double maxy = objectB.position.y + box.height / 2;
 
 		Vector closestPointCircle = new Vector(objectA.position);
 
@@ -39,26 +39,17 @@ public class CollisionHandler {
 	private static boolean collideAABAAB(PhysicsObject objectA, PhysicsObject objectB) {
 		AAB boxA = (AAB) objectA.collider;
 		AAB boxB = (AAB) objectB.collider;
-		float minxA = objectA.position.x - boxA.width / 2;
-		float maxxA = objectA.position.x + boxA.width / 2;
-		float minyA = objectA.position.y - boxA.height / 2;
-		float maxyA = objectA.position.y + boxA.height / 2;
+		double minxA = objectA.position.x - boxA.width / 2;
+		double maxxA = objectA.position.x + boxA.width / 2;
+		double minyA = objectA.position.y - boxA.height / 2;
+		double maxyA = objectA.position.y + boxA.height / 2;
 
-		float minxB = objectB.position.x - boxB.width / 2;
-		float maxxB = objectB.position.x + boxB.width / 2;
-		float minyB = objectB.position.y - boxB.height / 2;
-		float maxyB = objectB.position.y + boxB.height / 2;
+		double minxB = objectB.position.x - boxB.width / 2;
+		double maxxB = objectB.position.x + boxB.width / 2;
+		double minyB = objectB.position.y - boxB.height / 2;
+		double maxyB = objectB.position.y + boxB.height / 2;
 
 		return minxA < maxxB && minxB <= maxxA && minyA <= maxyB && minyB < maxyA;
-
-		/*
-		Vector from = Vector.sub(objectA.position, objectB.position);
-
-		if(Math.abs(from.x) <= boxA.width/2 + boxB.width/2)
-			return Math.abs(from.y) <= boxA.height/2 + boxB.height/2;
-
-		kdenk da dit efficienter is
-		* */
 	}
 
 	public static boolean collide(PhysicsObject a, PhysicsObject b) {
@@ -99,7 +90,7 @@ public class CollisionHandler {
 		Vector from = Vector.sub(objectB.position, objectA.position);
 		Vector vfrom = Vector.sub(objectB.velocity, objectA.velocity);
 
-		float dt = (-from.length() + (circleA.radius + circleB.radius))/vfrom.length();
+		double dt = (-from.length() + (circleA.radius + circleB.radius))/vfrom.length();
 
 		objectA.position = Vector.sub(objectA.position, Vector.mul(objectA.velocity, dt));
 		objectB.position = Vector.sub(objectB.position, Vector.mul(objectB.velocity, dt));
@@ -112,10 +103,10 @@ public class CollisionHandler {
 		Vector from = Vector.sub(objectB.position, objectA.position);
 		Vector vfrom = Vector.sub(objectB.velocity, objectA.velocity);
 
-		float minx = objectB.position.x - box.width / 2;
-		float maxx = objectB.position.x + box.width / 2;
-		float miny = objectB.position.y - box.height / 2;
-		float maxy = objectB.position.y + box.height / 2;
+		double minx = objectB.position.x - box.width / 2;
+		double maxx = objectB.position.x + box.width / 2;
+		double miny = objectB.position.y - box.height / 2;
+		double maxy = objectB.position.y + box.height / 2;
 
 		Vector closestPointCircle = new Vector(objectA.position);
 
@@ -131,9 +122,9 @@ public class CollisionHandler {
 		else if (closestPointCircle.y > maxy)
 			closestPointCircle.y = maxy;
 
-		float rbox = Vector.sub(objectB.position, closestPointCircle).length();
+		double rbox = Vector.sub(objectB.position, closestPointCircle).length();
 
-		float dt = (-from.length() + (circle.radius + rbox))/ vfrom.length();
+		double dt = (-from.length() + (circle.radius + rbox))/ vfrom.length();
 
 		objectA.position = Vector.sub(objectA.position, Vector.mul(objectA.velocity, dt));
 		objectB.position = Vector.sub(objectB.position, Vector.mul(objectB.velocity, dt));
@@ -145,9 +136,9 @@ public class CollisionHandler {
 
 		Vector from = Vector.sub(objectB.position, objectA.position);
 		Vector vfrom = Vector.sub(objectB.velocity, objectA.velocity);;
-		float m = from.y/from.x;
-		float d;
-		float dt;
+		double m = from.y/from.x;
+		double d;
+		double dt;
 
 		/*if(from.y - boxA.height/2 - boxB.height/2 < from.x - boxA.width/2 - boxB.width/2) {
 			d = boxA.height/2 + boxB.height/2;
@@ -170,14 +161,14 @@ public class CollisionHandler {
 	public static Vector normal(PhysicsObject objectA, PhysicsObject objectB) {
 		Vector normal = new Vector();
 		Vector from = Vector.sub(objectB.position, objectA.position);
-		float m = from.y/ from.x;
+		double m = from.y/ from.x;
 
 		switch (objectA.collider.getType()) {
 			case CIRCLE:
 				switch (objectB.collider.getType()) {
 					case CIRCLE -> {
 						from.normalise();
-						normal.equals(from);
+						normal.set(from);
 					}
 					case AAB -> {
 						AAB box = (AAB) objectB.collider;

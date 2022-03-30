@@ -5,8 +5,20 @@ import java.util.List;
 public class GravityCalculator implements ResultantForceCalculator
 {
 	public GravityCalculator() {
-		constant = 9.80665f;
+		constant = 9.80665;
 		direction = new Vector(0, -constant);
+	}
+	public GravityCalculator(double constant) {
+		this.constant = constant;
+		direction = new Vector(0, -constant);
+	}
+	public GravityCalculator(Vector direction) {
+		constant = 9.80665;
+		this.direction = direction;
+	}
+	public GravityCalculator(double constant, Vector direction) {
+		this.constant = constant;
+		this.direction = Vector.mul(Vector.normalise(direction), constant);
 	}
 
 	@Override
@@ -15,7 +27,7 @@ public class GravityCalculator implements ResultantForceCalculator
 		object.force.add(Vector.mul(direction, object.mass));
 	}
 
-	public void setConstant(float constant) {
+	public void setConstant(double constant) {
 		this.constant = constant;
 	}
 	public void setDirection(Vector direction) {
@@ -23,7 +35,7 @@ public class GravityCalculator implements ResultantForceCalculator
 		this.direction.normalise();
 		this.direction.mul(constant);
 	}
-	public float getConstant() {
+	public double getConstant() {
 		return constant;
 	}
 	public Vector getDirection() {
@@ -32,6 +44,6 @@ public class GravityCalculator implements ResultantForceCalculator
 		return dir;
 	}
 
-	private float constant;
+	private double constant;
 	private Vector direction;
 }

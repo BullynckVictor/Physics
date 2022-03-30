@@ -9,7 +9,7 @@ public class Collider
 		return type;
 	}
 
-	public float area() {
+	public double area() {
 		return 0;
 	}
 

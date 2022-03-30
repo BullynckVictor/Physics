@@ -8,24 +8,25 @@ public class AAB extends Collider
 		width = 0;
 		height = 0;
 	}
-	public AAB(float side)
+	public AAB(double side)
 	{
 		super(ColliderType.AAB);
 		width = side;
 		height = side;
 	}
-	public AAB(float width, float height)
+	public AAB(double width, double height)
 	{
 		super(ColliderType.AAB);
 		this.width = width;
 		this.height = height;
 	}
 
-	public float area()
+	@Override
+	public double area()
 	{
 		return width * height;
 	}
 
-	public float width;
-	public float height;
+	public double width;
+	public double height;
 }

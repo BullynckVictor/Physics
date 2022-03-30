@@ -78,61 +78,61 @@ public class Renderer
 		mutex.unlock();
 	}
 
-	public void drawCircle(float x, float y, float radius, Color color, Transform transform)
+	public void drawCircle(double x, double y, double radius, Color color, Transform transform)
 	{
 		setTransform(transform);
 		getGraphics().setColor(color);
-		float r = radius * min;
-		float rx = x * min - r;
-		float ry = y * min - r;
+		double r = radius * min;
+		double rx = x * min - r;
+		double ry = y * min - r;
 		graphics.drawOval((int)rx, (int)ry, (int)r * 2, (int)r * 2);
 	}
-	public void drawCircle(float x, float y, float radius, Color color)
+	public void drawCircle(double x, double y, double radius, Color color)
 	{
 		drawCircle(x, y, radius, color, null);
 	}
-	public void drawCircle(Vector pos, float radius, Color color)
+	public void drawCircle(Vector pos, double radius, Color color)
 	{
 		drawCircle(pos.x, pos.y, radius, color);
 	}
-	public void drawCircle(Vector pos, float radius, Color color, Transform transform) { drawCircle(pos.x, pos.y, radius, color, transform); }
+	public void drawCircle(Vector pos, double radius, Color color, Transform transform) { drawCircle(pos.x, pos.y, radius, color, transform); }
 
-	public void fillCircle(float x, float y, float radius, Color color, Transform transform)
+	public void fillCircle(double x, double y, double radius, Color color, Transform transform)
 	{
 		setTransform(transform);
 		getGraphics().setColor(color);
-		float r = radius * min;
-		float rx = x * min - r;
-		float ry = y * min - r;
+		double r = radius * min;
+		double rx = x * min - r;
+		double ry = y * min - r;
 		graphics.fillOval((int)rx, (int)ry, (int)r * 2, (int)r * 2);
 	}
-	public void fillCircle(float x, float y, float radius, Color color)
+	public void fillCircle(double x, double y, double radius, Color color)
 	{
 		fillCircle(x, y, radius, color, null);
 	}
-	public void fillCircle(Vector pos, float radius, Color color)
+	public void fillCircle(Vector pos, double radius, Color color)
 	{
 		fillCircle(pos.x, pos.y, radius, color);
 	}
-	public void fillCircle(Vector pos, float radius, Color color, Transform transform) { fillCircle(pos.x, pos.y, radius, color, transform); }
+	public void fillCircle(Vector pos, double radius, Color color, Transform transform) { fillCircle(pos.x, pos.y, radius, color, transform); }
 
-	public void drawRectangle(float x, float y, float width, float height, Color color, Transform transform)
+	public void drawRectangle(double x, double y, double width, double height, Color color, Transform transform)
 	{
 		setTransform(transform);
 		getGraphics().setColor(color);
-		float rx = x * min - width * min / 2;
-		float ry = y * min - height * min / 2;
+		double rx = x * min - width * min / 2;
+		double ry = y * min - height * min / 2;
 		graphics.drawRect((int)rx, (int)ry, (int)(width * min), (int)(height * min));
 	}
-	public void drawRectangle(float x, float y, float width, float height, Color color)
+	public void drawRectangle(double x, double y, double width, double height, Color color)
 	{
 		drawRectangle(x, y, width, height, color, null);
 	}
-	public void drawRectangle(Vector pos, float width, float height, Color color, Transform transform)
+	public void drawRectangle(Vector pos, double width, double height, Color color, Transform transform)
 	{
 		drawRectangle(pos.x, pos.y, width, height, color, transform);
 	}
-	public void drawRectangle(Vector pos, float width, float height, Color color)
+	public void drawRectangle(Vector pos, double width, double height, Color color)
 	{
 		drawRectangle(pos.x, pos.y, width, height, color, null);
 	}
@@ -145,23 +145,23 @@ public class Renderer
 		drawRectangle(pos.x, pos.y, size.x, size.y, color, null);
 	}
 
-	public void fillRectangle(float x, float y, float width, float height, Color color, Transform transform)
+	public void fillRectangle(double x, double y, double width, double height, Color color, Transform transform)
 	{
 		setTransform(transform);
 		getGraphics().setColor(color);
-		float rx = x * min - width * min / 2;
-		float ry = y * min - height * min / 2;
+		double rx = x * min - width * min / 2;
+		double ry = y * min - height * min / 2;
 		graphics.fillRect((int)rx, (int)ry, (int)(width * min), (int)(height * min));
 	}
-	public void fillRectangle(float x, float y, float width, float height, Color color)
+	public void fillRectangle(double x, double y, double width, double height, Color color)
 	{
 		fillRectangle(x, y, width, height, color, null);
 	}
-	public void fillRectangle(Vector pos, float width, float height, Color color, Transform transform)
+	public void fillRectangle(Vector pos, double width, double height, Color color, Transform transform)
 	{
 		fillRectangle(pos.x, pos.y, width, height, color, transform);
 	}
-	public void fillRectangle(Vector pos, float width, float height, Color color)
+	public void fillRectangle(Vector pos, double width, double height, Color color)
 	{
 		fillRectangle(pos.x, pos.y, width, height, color, null);
 	}
@@ -174,13 +174,13 @@ public class Renderer
 		fillRectangle(pos.x, pos.y, size.x, size.y, color, null);
 	}
 
-	public void drawLine(float x1, float y1, float x2, float y2, Color color, Transform transform)
+	public void drawLine(double x1, double y1, double x2, double y2, Color color, Transform transform)
 	{
 		setTransform(transform);
 		getGraphics().setColor(color);
 		getGraphics().drawLine((int)(x1 * min), (int)(y1 * min), (int)(x2 * min), (int)(y2 * min));
 	}
-	public void drawLine(float x1, float y1, float x2, float y2, Color color)
+	public void drawLine(double x1, double y1, double x2, double y2, Color color)
 	{
 		drawLine(x1, y1, x2, y2, color, null);
 	}
@@ -188,11 +188,11 @@ public class Renderer
 	{
 		drawLine(p1.x, p1.y, p2.x, p2.y, color, transform);
 	}
-	public void drawLine(Vector p1, float x2, float y2, Color color)
+	public void drawLine(Vector p1, double x2, double y2, Color color)
 	{
 		drawLine(p1.x, p1.y, x2, y2, color);
 	}
-	public void drawLine(Vector p1, float x2, float y2, Color color, Transform transform)
+	public void drawLine(Vector p1, double x2, double y2, Color color, Transform transform)
 	{
 		drawLine(p1.x, p1.y, x2, y2, color, transform);
 	}
@@ -201,14 +201,14 @@ public class Renderer
 		drawLine(p1.x, p1.y, p2.x, p2.y, color);
 	}
 
-	public void drawString(String string, float x, float y, Color color, Transform transform)
+	public void drawString(String string, double x, double y, Color color, Transform transform)
 	{
 		setTransform(transform);
 		getGraphics().scale(1, -1);
 		getGraphics().setColor(color);
 		getGraphics().drawString(string, (int)(x * min), (int)(y * min));
 	}
-	public void drawString(String string, float x, float y, Color color)
+	public void drawString(String string, double x, double y, Color color)
 	{
 		drawString(string, x, y, color, null);
 	}
@@ -220,7 +220,7 @@ public class Renderer
 	{
 		drawString(string, p, color, null);
 	}
-	public void drawStringUI(String string, float x, float y, Color color)
+	public void drawStringUI(String string, double x, double y, Color color)
 	{
 		getGraphics().setTransform(baseTransform);
 		getGraphics().translate(middle.x, middle.y);
@@ -337,7 +337,7 @@ public class Renderer
 	private Graphics2D graphics;
 	private boolean opened = true;
 	private AffineTransform baseTransform;
-	private float min;
-	private final Point middle;
+	private double min;
+	private Point middle;
 	private ReentrantLock mutex = new ReentrantLock();
 }

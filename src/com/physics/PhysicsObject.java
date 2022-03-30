@@ -11,7 +11,7 @@ public class PhysicsObject
 		mass = collider.area();
 		this.collider = collider;
 	}
-	public PhysicsObject(Collider collider, float density)
+	public PhysicsObject(Collider collider, double density)
 	{
 		position = new Vector();
 		velocity = new Vector();
@@ -21,7 +21,7 @@ public class PhysicsObject
 		this.collider = collider;
 	}
 
-	public float mass;
+	public double mass;
 	public Vector position;
 	public Vector velocity;
 	public Vector acceleration;

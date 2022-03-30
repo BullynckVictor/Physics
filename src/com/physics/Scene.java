@@ -48,7 +48,7 @@ public class Scene {
 	{
 	}
 
-	protected void controlCamera(float speed)
+	protected void controlCamera(double speed)
 	{
 		Vector delta = new Vector();
 

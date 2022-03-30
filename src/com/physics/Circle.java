@@ -7,17 +7,17 @@ public class Circle extends Collider
 		super(ColliderType.CIRCLE);
 		radius = 0;
 	}
-	public Circle(float radius)
+	public Circle(double radius)
 	{
 		super(ColliderType.CIRCLE);
 		this.radius = radius;
 	}
 
 	@Override
-	public float area()
+	public double area()
 	{
-		return radius * radius * (float)Math.PI;
+		return radius * radius * Math.PI;
 	}
 
-	public float radius;
+	public double radius;
 }

@@ -12,12 +12,12 @@ public class Transform
 	{
 		this.position = position;
 	}
-	public Transform(Vector position, float rotation)
+	public Transform(Vector position, double rotation)
 	{
 		this.position = position;
 		this.rotation = rotation;
 	}
-	public Transform(Vector position, float rotation, Vector scale)
+	public Transform(Vector position, double rotation, Vector scale)
 	{
 		this.position = position;
 		this.rotation = rotation;
@@ -30,7 +30,7 @@ public class Transform
 		scale = transform.scale;
 	}
 
-	public static Transform rotation(float rotation) {
+	public static Transform rotation(double rotation) {
 		Transform ret = new Transform();
 		ret.rotation = rotation;
 		return ret;
@@ -44,14 +44,14 @@ public class Transform
 	{
 		return translation(translation.x, translation.y);
 	}
-	public static Transform position(float x, float y)
+	public static Transform position(double x, double y)
 	{
 		Transform ret = new Transform();
 		ret.position.x = x;
 		ret.position.y = y;
 		return ret;
 	}
-	public static Transform translation(float x, float y)
+	public static Transform translation(double x, double y)
 	{
 		return position(x, y);
 	}
@@ -60,7 +60,7 @@ public class Transform
 	{
 		return scale(scale.x, scale.y);
 	}
-	public static Transform scale(float x, float y)
+	public static Transform scale(double x, double y)
 	{
 		Transform ret = new Transform();
 		ret.scale.x = x;
@@ -69,6 +69,6 @@ public class Transform
 	}
 
 	public Vector position;
-	public float rotation;
+	public double rotation;
 	public Vector scale;
 }

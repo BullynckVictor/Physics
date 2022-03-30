@@ -55,8 +55,8 @@ public class Debug {
 		if (vector.x >= 0)
 			theta += Math.PI;
 
-		renderer.drawLine(point, (float)(point.x + Math.cos(theta + range) * r), (float)(point.y + Math.sin(theta + range) * r), color);
-		renderer.drawLine(point, (float)(point.x + Math.cos(theta - range) * r), (float)(point.y + Math.sin(theta - range) * r), color);
+		renderer.drawLine(point, (point.x + Math.cos(theta + range) * r), (point.y + Math.sin(theta + range) * r), color);
+		renderer.drawLine(point, (point.x + Math.cos(theta - range) * r), (point.y + Math.sin(theta - range) * r), color);
 	}
 
 	public static Renderer renderer;

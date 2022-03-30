@@ -5,9 +5,9 @@ import java.util.List;
 public class UniversalGravityCalculator implements ResultantForceCalculator {
 
 	public UniversalGravityCalculator() {
-		constant = (float)6.674e-11;
+		constant = 6.67428e-11;
 	}
-	public UniversalGravityCalculator(float constant) {
+	public UniversalGravityCalculator(double constant) {
 		this.constant = constant;
 	}
 
@@ -16,7 +16,7 @@ public class UniversalGravityCalculator implements ResultantForceCalculator {
 		for(int i = index + 1; i < objects.size(); i++) {
 			PhysicsObject other = objects.get(i);									// het andere object
 			Vector from = Vector.sub(other.position, object.position);				// de vector die van object naar other gaat
-			float force = constant * object.mass * other.mass / from.lengthSQ();	// rsqrd = de lengte² van het verschil ('from')
+			double force = constant * object.mass * other.mass / from.lengthSQ();	// rsqrd = de lengte² van het verschil ('from')
 			from.normalise();														// from wordt herleid naar een richting, zie https://www.khanacademy.org/computing/computer-programming/programming-natural-simulations/programming-vectors/a/vector-magnitude-normalization
 			from.mul(force);														// dit is nu de Fz in object, hij wijst naar het ander object en heeft de grootte van Fz
 			object.force.add(from);													// et voila
@@ -26,5 +26,5 @@ public class UniversalGravityCalculator implements ResultantForceCalculator {
 		}
 	}
 
-	public float constant;
+	public double constant;
 }

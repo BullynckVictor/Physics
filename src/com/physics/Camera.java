@@ -11,24 +11,24 @@ public class Camera
 	{
 		this.position = position;
 	}
-	public Camera(Vector position, float rotation)
+	public Camera(Vector position, double rotation)
 	{
 		this.position = position;
 		this.rotation = rotation;
 	}
-	public Camera(Vector position, float rotation, float zoom)
+	public Camera(Vector position, double rotation, double zoom)
 	{
 		this.position = position;
 		this.rotation = rotation;
 		this.zoom = zoom;
 	}
 
-	public void moveRelativeX(float x)
+	public void moveRelativeX(double x)
 	{
 		if (shouldRotate())
 		{
-			float cos = (float) Math.cos(-rotation);
-			float sin = (float) Math.sin(-rotation);
+			double cos = Math.cos(-rotation);
+			double sin = Math.sin(-rotation);
 			position.x += x * cos;
 			position.y += x * sin;
 		}
@@ -37,12 +37,12 @@ public class Camera
 			position.x += x;
 		}
 	}
-	public void moveRelativeY(float y)
+	public void moveRelativeY(double y)
 	{
 		if (shouldRotate())
 		{
-			float cos = (float) Math.cos(-rotation);
-			float sin = (float) Math.sin(-rotation);
+			double cos = Math.cos(-rotation);
+			double sin = Math.sin(-rotation);
 			position.x += -y * sin;
 			position.y += y * cos;
 		}
@@ -51,12 +51,12 @@ public class Camera
 			position.y += y;
 		}
 	}
-	public void moveRelative(float x, float y)
+	public void moveRelative(double x, double y)
 	{
 		if (shouldRotate())
 		{
-			float cos = (float)Math.cos(rotation);
-			float sin = (float)Math.sin(rotation);
+			double cos = Math.cos(rotation);
+			double sin = Math.sin(rotation);
 			position.x += x * cos - y * sin;
 			position.y += x * sin + y * cos;
 		}
@@ -77,6 +77,6 @@ public class Camera
 	}
 
 	public final Vector position;
-	public float rotation = 0;
-	public float zoom = 1;
+	public double rotation = 0;
+	public double zoom = 1;
 }

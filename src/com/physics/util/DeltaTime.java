@@ -35,9 +35,9 @@ public class DeltaTime {
 	{
 		return (double)nanosLong() / 1000000000.0d;
 	}
-	public float seconds()
+	public double seconds()
 	{
-		return secondsFloat();
+		return secondsDouble();
 	}
 
 	public long nanosLong()

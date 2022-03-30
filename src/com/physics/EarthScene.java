@@ -23,11 +23,11 @@ public class EarthScene extends Scene {
 		satellite = new PhysicsObject(new Circle(0.125f));
 
 		earth.movable = false;
-		float velocity = 1f;
-		float theta = (float)(Math.random() * Math.PI * 2);
+		double velocity = 1f;
+		double theta = Math.random() * Math.PI * 2;
 		radius = gravity.constant * earth.mass / (velocity * velocity);
-		satellite.position.set(radius * (float)Math.cos(theta), radius * (float)Math.sin(theta));
-		satellite.velocity.set(velocity * (float)Math.cos(theta + Math.PI / 2), velocity * (float)Math.sin(theta + Math.PI / 2));
+		satellite.position.set(radius * Math.cos(theta), radius * Math.sin(theta));
+		satellite.velocity.set(velocity * Math.cos(theta + Math.PI / 2), velocity * Math.sin(theta + Math.PI / 2));
 
 		engine.addObject(earth);
 		engine.addObject(satellite);
@@ -42,7 +42,7 @@ public class EarthScene extends Scene {
 	public void update(DeltaTime dt) throws Exception
 	{
 		engine.compute(dt);
-		controlCamera(dt.seconds());
+		controlCamera(dt.secondsDouble());
 		updateScene();
 	}
 
@@ -58,11 +58,11 @@ public class EarthScene extends Scene {
 		Debug.drawVector(satellite.acceleration, satellite.position);
 
 		Vector relative = renderer.getRelativeSize();
-		renderer.drawStringUI(Float.toString(satellite.velocity.length()), -relative.x + 0.05f, relative.y - 0.11f, Color.BLACK);
-		renderer.drawStringUI(Float.toString(satellite.position.length()), -relative.x + 0.05f, relative.y - 0.17f, Color.BLACK);
+		renderer.drawStringUI(Double.toString(satellite.velocity.length()), -relative.x + 0.05f, relative.y - 0.11f, Color.BLACK);
+		renderer.drawStringUI(Double.toString(satellite.position.length()), -relative.x + 0.05f, relative.y - 0.17f, Color.BLACK);
 	}
 
 	private PhysicsObject earth;
 	private PhysicsObject satellite;
-	private float radius;
+	private double radius;
 }

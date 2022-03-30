@@ -2,8 +2,10 @@ package com.physics;
 
 import com.physics.util.DeltaTime;
 
+import javax.xml.datatype.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Engine
 {
@@ -21,11 +23,21 @@ public class Engine
 
 	public void compute(DeltaTime dt)
 	{
-		delta.add(dt);
-		int n = (int)(delta.seconds() / this.dt.seconds());
-		for (int i = 0; i < n; ++i) {
+		if (this.dt.seconds() == 0)
+		{
+			this.dt = dt;
 			tick();
-			delta.sub(this.dt);
+			this.dt = new DeltaTime(0, ChronoUnit.SECONDS);
+		}
+		else
+		{
+			delta.add(dt);
+			int n = (int) (delta.seconds() / this.dt.seconds());
+			for (int i = 0; i < n; ++i)
+			{
+				tick();
+				delta.sub(this.dt);
+			}
 		}
 	}
 
@@ -61,8 +73,6 @@ public class Engine
 			PhysicsObject objectA = objects.get(i);
 			for (int j = i + 1; j < objects.size(); ++j) {
 				PhysicsObject objectB = objects.get(j);
-
-				Debug.drawVector(Vector.sub(objectB.position, objectA.position), objectA.position);
 
 				if (CollisionHandler.collide(objectA, objectB)) {
 					CollisionHandler.resolve(objectA, objectB);
