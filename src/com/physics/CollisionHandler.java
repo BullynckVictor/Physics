@@ -7,7 +7,7 @@ public class CollisionHandler {
 		Circle circleB = (Circle)objectB.collider;
 		double distanceSQ = Vector.distanceSQ(objectA.position, objectB.position);
 		double radiusSQ = circleA.radius * circleA.radius  + 2 * circleA.radius * circleB.radius + circleB.radius * circleB.radius;
-		return distanceSQ <= radiusSQ;
+		return distanceSQ <= radiusSQ+1e-9;
 	}
 
 	private static boolean collideCircleAAB(PhysicsObject objectA, PhysicsObject objectB) {
@@ -90,7 +90,9 @@ public class CollisionHandler {
 		Vector from = Vector.sub(objectB.position, objectA.position);
 		Vector vfrom = Vector.sub(objectB.velocity, objectA.velocity);
 
-		double dt = (-from.length() + (circleA.radius + circleB.radius))/vfrom.length();
+		double dt0 = (-from.length() + (circleA.radius + circleB.radius))/vfrom.length();
+		double dt1 = (-from.length() - (circleA.radius + circleB.radius))/vfrom.length();
+		double dt = Math.max(dt0,dt1);
 
 		objectA.position = Vector.sub(objectA.position, Vector.mul(objectA.velocity, dt));
 		objectB.position = Vector.sub(objectB.position, Vector.mul(objectB.velocity, dt));

@@ -43,6 +43,9 @@ public class Engine
 
 	public void tick()
 	{
+		double energy = 0;
+
+
 		for (int index = 0; index < objects.size(); ++index)
 		{
 			PhysicsObject object = objects.get(index);
@@ -50,16 +53,23 @@ public class Engine
 			if (forceCalculator != null)
 				forceCalculator.calculateResultantForce(object, objects, index);
 
+			energy += object.mass*9.81*(object.position.y+3.5) + object.mass*object.velocity.lengthSQ()/2;
+
 			if (object.movable)
 			{
 				//acceleration
 				object.acceleration = Vector.div(object.force, object.mass);
 
 				//position
+
 				object.position = Vector.add(object.position, Vector.add(Vector.mul(object.acceleration, dt.seconds() * dt.seconds() / 2), Vector.mul(object.velocity, dt.seconds())));
 
 				//velocity
 				object.velocity = Vector.add(object.velocity, Vector.mul(object.acceleration, dt.seconds()));
+
+
+				//object.velocity = Vector.mul(object.acceleration, dt.seconds());
+				//object.position = Vector.mul(object.velocity, dt.seconds());
 			}
 			else
 			{
@@ -68,6 +78,7 @@ public class Engine
 			}
 			object.force.set(0);
 		}
+		System.out.println(energy);
 
 		for (int i = 0; i < objects.size(); ++i) {
 			PhysicsObject objectA = objects.get(i);
@@ -77,16 +88,18 @@ public class Engine
 				if (CollisionHandler.collide(objectA, objectB)) {
 					CollisionHandler.resolve(objectA, objectB);
 					Vector normal1 = CollisionHandler.normal(objectA, objectB);
-					Vector normal2 = Vector.mul(normal1, -1);
-					Vector r1 = Vector.sub(objectA.velocity, Vector.mul(normal1, 2*objectA.velocity.dot(normal1)));
-					Vector r2 = Vector.sub(objectB.velocity, Vector.mul(normal2, 2*objectB.velocity.dot(normal2)));
+					Vector r1 = Vector.sub(objectA.velocity, Vector.mul(normal1,2*objectA.velocity.dot(normal1)));
+					Vector r2 = Vector.sub(objectB.velocity, Vector.mul(normal1, 2*objectB.velocity.dot(normal1)));
 					r1.normalise();
 					r2.normalise();
 
+					System.out.println("botsing");
+
 					Vector v1 = Vector.add(Vector.mul(objectA.velocity, (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass)),Vector.mul(objectB.velocity, (2* objectB.mass) / (objectA.mass + objectB.mass)));
-					Vector v2 = Vector.sub(Vector.mul(objectA.velocity, (2*objectB.mass) / (objectA.mass + objectB.mass)),Vector.mul(objectB.velocity, (objectA.mass - objectB.mass) / (objectA.mass + objectB.mass)));
-					objectA.velocity = Vector.mul(r1, v1.length());
-					objectB.velocity = Vector.mul(r2, v2.length());
+					Vector v2 = Vector.sub(Vector.mul(objectA.velocity, (2*objectA.mass) / (objectA.mass + objectB.mass)),Vector.mul(objectB.velocity, (objectB.mass - objectA.mass) / (objectA.mass + objectB.mass)));
+					objectA.velocity = Vector.mul(r1, v1.length()*0.99);
+					objectB.velocity = Vector.mul(r2, v2.length()*0.99);
+
 				}
 			}
 		}

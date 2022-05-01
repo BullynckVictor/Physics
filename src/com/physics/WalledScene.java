@@ -3,6 +3,7 @@ package com.physics;
 import com.physics.util.DeltaTime;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class WalledScene extends Scene {
 
@@ -35,9 +36,17 @@ public class WalledScene extends Scene {
 
         Ball1 = new PhysicsObject(new Circle(.1f));
         Ball2 = new PhysicsObject(new Circle(.1f));
+        Ball3 = new PhysicsObject(new Circle(.1f));
 
-        Ball1.position.set(0.1f,0.5f);
-        Ball2.position.set(0,0);
+        do {
+            Ball1.position = Vector.random();
+            Ball2.position = Vector.random();
+        }
+        while(Vector.distanceSQ(Ball1.position, Ball2.position) <= (.1 + .1) * (.1 + .1));
+
+        Ball1.velocity = Vector.normalise(Vector.sub(Ball2.position, Ball1.position));
+        Ball2.velocity = Vector.normalise(Vector.sub(Ball1.position, Ball2.position));
+        Ball3.position.set(-1.1f, 0);
 
         engine.addObject(Upwall);
         engine.addObject(Downwall);
@@ -46,7 +55,7 @@ public class WalledScene extends Scene {
 
         engine.addObject(Ball1);
         engine.addObject(Ball2);
-
+        engine.addObject(Ball3);
     }
     @Override
     public void unload()
@@ -57,8 +66,13 @@ public class WalledScene extends Scene {
     @Override
     public void update(DeltaTime dt) throws Exception
     {
+        if (input.keyboard.keyFlagged(KeyEvent.VK_SPACE) != 0)
+        {
+            Ball1.velocity.add(Vector.normalise(Vector.sub(Ball2.position, Ball1.position)));
+            Ball2.velocity.add(Vector.normalise(Vector.sub(Ball1.position, Ball2.position)));
+        }
+
         engine.compute(dt);
-        controlCamera(dt.seconds());
         updateScene();
     }
 
@@ -72,6 +86,7 @@ public class WalledScene extends Scene {
 
         renderer.drawObject(Ball1, Color.green);
         renderer.drawObject(Ball2, Color.red);
+        renderer.drawObject(Ball3, Color.blue);
 
 
     }
@@ -81,5 +96,6 @@ public class WalledScene extends Scene {
     private PhysicsObject Rightwall;
     private PhysicsObject Ball1;
     private PhysicsObject Ball2;
+    private PhysicsObject Ball3;
 
 }

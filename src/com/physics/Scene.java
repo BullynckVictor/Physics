@@ -36,6 +36,9 @@ public class Scene {
 
 	public void load() {
 		input.keyboard.clear();
+		renderer.camera.position.set(0);
+		renderer.camera.rotation = 0;
+		renderer.camera.zoom = 1;
 	}
 	public void unload()
 	{
